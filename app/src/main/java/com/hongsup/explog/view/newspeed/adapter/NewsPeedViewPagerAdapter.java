@@ -1,9 +1,7 @@
 package com.hongsup.explog.view.newspeed.adapter;
 
 import android.content.Context;
-import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +10,6 @@ import com.hongsup.explog.R;
 import com.hongsup.explog.view.newspeeditem.contract.NewsPeedItemContract;
 import com.hongsup.explog.view.newspeeditem.presenter.NewsPeedItemPresenter;
 import com.hongsup.explog.view.newspeeditem.view.NewsPeedItemView;
-
-import javax.security.auth.login.LoginException;
-
-import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 /**
  * Created by Android Hong on 2017-11-30.
@@ -78,9 +72,9 @@ public class NewsPeedViewPagerAdapter extends PagerAdapter {
             case 3:
                 return context.getResources().getString(R.string.south_americas);
             case 4:
-                return context.getResources().getString(R.string.oceania);
-            case 5:
                 return context.getResources().getString(R.string.africa);
+            case 5:
+                return context.getResources().getString(R.string.oceania);
             default:
                 return "띠용";
         }

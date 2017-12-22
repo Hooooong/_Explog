@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.hongsup.explog.R;
 import com.hongsup.explog.data.Const;
 import com.hongsup.explog.data.photo.Photo;
+import com.hongsup.explog.util.GalleryUtil;
 import com.hongsup.explog.view.base.BaseActivity;
 
 import java.util.ArrayList;

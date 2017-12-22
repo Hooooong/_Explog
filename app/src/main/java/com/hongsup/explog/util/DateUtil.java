@@ -63,7 +63,7 @@ public class DateUtil {
     public static String getConvertDate(String start_date, String end_date){
         String startData = start_date.replace("-",".");
         String endData ="";
-        if(end_date != null){
+        if(end_date != null && !start_date.equals(end_date)){
             endData = " - "+end_date.replace("-",".");
         }
         return startData+endData;

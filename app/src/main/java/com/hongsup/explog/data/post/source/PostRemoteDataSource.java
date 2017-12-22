@@ -1,5 +1,7 @@
 package com.hongsup.explog.data.post.source;
 
+import android.util.Log;
+
 import com.hongsup.explog.data.post.PostContent;
 import com.hongsup.explog.data.post.PostContentResult;
 import com.hongsup.explog.data.post.PostCover;
@@ -68,6 +70,7 @@ public class PostRemoteDataSource implements PostSource {
         if (cover.getCoverPath() != null) {
             File file = new File(cover.getCoverPath());
             // create RequestBody instance from file
+
             RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
             requestBodyMap.put("img\"; filename=\"" + file.getName(), requestFile);
         } else {
@@ -97,6 +100,11 @@ public class PostRemoteDataSource implements PostSource {
     public Observable<Response<PostContent>> uploadPostPhoto(int postPk, String photoPath) {
         Map<String, RequestBody> requestBodyMap = new HashMap<>();
         File file = new File(photoPath);
+
+        long fileSize = file.length();
+        Log.e("FileSize", "uploadPostPhoto: " + fileSize + "byte" );
+
+
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
         requestBodyMap.put("photo\"; filename=\"" + file.getName(), requestFile);
 

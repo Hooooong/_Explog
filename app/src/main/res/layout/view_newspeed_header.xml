@@ -19,6 +19,7 @@
         app:layout_constraintVertical_bias="0.38"
         app:tabGravity="center"
         app:tabIndicatorColor="@android:color/transparent"
+        app:tabBackground="@null"
         app:tabMinWidth="@dimen/view_newspeed_top_tab_width"
         app:tabMode="scrollable" />
 

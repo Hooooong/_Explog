@@ -1,4 +1,4 @@
-package com.hongsup.explog.view.gallery;
+package com.hongsup.explog.util;
 
 /**
  * Created by 정인섭 on 2017-11-30.

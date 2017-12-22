@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.hongsup.explog.R;
 import com.hongsup.explog.data.post.PostCover;
+import com.hongsup.explog.util.DateUtil;
 import com.hongsup.explog.view.newspeeditem.listener.OnCoverClickListener;
 import com.hongsup.explog.view.search.adapter.contract.SearchResultAdapterContract;
 
@@ -39,23 +40,22 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
     @Override
     public ResultHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_search_post, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_post_search, parent, false);
         return new ResultHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ResultHolder holder, int position) {
-        holder.textWriter.setText(searchResultList.get(position).getAuthor().getUsername());
-        holder.textTitle.setText(searchResultList.get(position).getTitle());
-
-        String date = searchResultList.get(position).getStartDate() + " - " + searchResultList.get(position).getEndDate();
-        holder.textDate.setText(date);
-
         Glide.with(context)
                 .load(searchResultList.get(position).getCoverPath())
                 .centerCrop()
-                .into(holder.imageSearch);
+                .into(holder.imgCover);
 
+        holder.textWriter.setText(searchResultList.get(position).getAuthor().getUsername());
+        holder.textTitle.setText(searchResultList.get(position).getTitle());
+        holder.textLikeCount.setText(searchResultList.get(position).getLikeCount() + "");
+        holder.textDate.setText(DateUtil.getConvertDate(searchResultList.get(position).getStartDate(), searchResultList.get(position).getEndDate()));
+        holder.setTextArea(searchResultList.get(position).getContinent());
         holder.setPostCover(searchResultList.get(position));
     }
 
@@ -82,8 +82,8 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
     class ResultHolder extends RecyclerView.ViewHolder {
 
-        //        @BindView(R.id.searchItemImageView)
-        //        ImageView searchItemImageView;
+        @BindView(R.id.imgCover)
+        ImageView imgCover;
         @BindView(R.id.textWriter)
         TextView textWriter;
         @BindView(R.id.textTitle)
@@ -92,14 +92,16 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         //        TextView textContent;
         @BindView(R.id.textDate)
         TextView textDate;
-        @BindView(R.id.textCalcDate)
-        TextView textCalcDate;
+        /*
         @BindView(R.id.textComment)
         TextView textComment;
-        @BindView(R.id.textLike)
-        TextView textLike;
-        @BindView(R.id.imageSearch)
-        ImageView imageSearch;
+        */
+        @BindView(R.id.imgLike)
+        ImageView imgLike;
+        @BindView(R.id.textLikeCount)
+        TextView textLikeCount;
+        @BindView(R.id.textArea)
+        TextView textArea;
 
         private PostCover postCover;
 
@@ -119,5 +121,30 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             this.postCover = cover;
         }
 
+        private void setTextArea(String continent){
+            switch (continent) {
+                case "0":
+                    textArea.setText(context.getResources().getString(R.string.asia));
+                    break;
+                case "1":
+                    textArea.setText(context.getResources().getString(R.string.europe));
+                    break;
+                case "2":
+                    textArea.setText(context.getResources().getString(R.string.north_americas));
+                    break;
+                case "3":
+                    textArea.setText(context.getResources().getString(R.string.south_americas));
+                    break;
+                case "4":
+                    textArea.setText(context.getResources().getString(R.string.oceania));
+                    break;
+                case "5":
+                    textArea.setText(context.getResources().getString(R.string.africa));
+                    break;
+                default:
+                    textArea.setText("띠용");
+                    break;
+            }
+        }
     }
 }

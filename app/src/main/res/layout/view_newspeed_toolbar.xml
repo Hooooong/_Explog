@@ -30,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:tabIndicatorColor="@color/colorWhite"
+        app:tabBackground="@null"
         android:layout_weight="1.4">
     </com.hongsup.explog.view.custom.CustomTabLayout>
 </LinearLayout>

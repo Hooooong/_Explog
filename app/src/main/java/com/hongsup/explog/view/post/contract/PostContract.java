@@ -27,6 +27,8 @@ public interface PostContract {
         void setMenu(Menu menu);
 
         void onMenuClick(MenuItem item);
+
+        // void moveToScrollMax();
     }
 
     interface iPresenter {

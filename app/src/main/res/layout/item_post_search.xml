@@ -20,9 +20,9 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageSearch"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:id="@+id/imgCover"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
@@ -30,16 +30,12 @@
 
         <TextView
             android:id="@+id/textWriter"
-            android:layout_width="100dp"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/imageView"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
             android:gravity="right"
-            android:paddingRight="5dp"
-            android:text="#이흥기"
             android:textSize="12sp"
             android:visibility="visible" />
     </RelativeLayout>
@@ -62,25 +58,11 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:layout_marginBottom="3dp"
             android:padding="5dp"
             android:singleLine="true"
-            android:text="뿌잉뿌잉뿌미ㅏ너림ㅇ너리ㅓ민러ㅣㅏㅁ너라ㅣㅓㅁ낭리ㅓ마닝러ㅏㅣㅁㄴ어라ㅣ잉"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textContent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/textTitle"
-            android:ellipsize="end"
-            android:maxLines="3"
-            android:padding="5dp"
-            android:text="asfdasfdasfasfasfasfasfasfasfasfjnasfaksndlkfalksjflkasfklasjlkflkasfkaslfksjflasjfaskfa;lksjfkajsfklasjfl;sajflkjaslkf;jasl;kfjlskafjl;sakjflk;sajflksajflkajsf"
-            android:textColor="@color/colorGray"
-            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/textDate"
@@ -88,27 +70,33 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/textContent"
+            android:layout_below="@+id/textTitle"
+            android:layout_marginBottom="3dp"
+            android:layout_marginTop="3dp"
             android:padding="5dp"
-            android:text="2017.01.11 ~ 2018.02.11"
-            android:textSize="10sp" />
+            android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/textCalcDate"
+            android:id="@+id/textArea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textDate"
-            android:layout_toRightOf="@+id/textDate"
-            android:text="31일전"
-            android:textSize="10sp"
-            android:textStyle="bold" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textDate"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/border_cover_area"
+            android:gravity="center"
+            android:textColor="@color/colorMain"
+            android:textSize="12sp" />
+
+
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/likeAndCommentLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageLayout"
@@ -121,28 +109,30 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp">
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/ic_comment_gray_16dp" />
+            <!--
+                        <ImageView
+                            android:id="@+id/imageView4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_comment_gray_16dp" />
 
-            <TextView
-                android:id="@+id/textComment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="125K"
-                android:textColor="@color/colorGray"
-                android:textSize="12dp"
-                android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/textComment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="125K"
+                            android:textColor="@color/colorGray"
+                            android:textSize="12dp"
+                            android:textStyle="bold" />
+            -->
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/imgLike"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -151,11 +141,10 @@
                 android:src="@drawable/ic_like_gray_16dp" />
 
             <TextView
-                android:id="@+id/textLike"
+                android:id="@+id/textLikeCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="123K"
                 android:textColor="@color/colorGray"
                 android:textSize="12sp"
                 android:textStyle="bold" />

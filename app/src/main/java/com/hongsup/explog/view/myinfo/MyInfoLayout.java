@@ -3,7 +3,6 @@ package com.hongsup.explog.view.myinfo;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -11,9 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.hongsup.explog.R;
@@ -39,6 +36,7 @@ import retrofit2.Response;
  */
 
 public class MyInfoLayout extends FrameLayout {
+
     @BindView(R.id.myinfo_viewPager)
     ViewPager myinfo_viewPager;
     ViewPagerAdapter viewPagerAdapter;
@@ -90,18 +88,14 @@ public class MyInfoLayout extends FrameLayout {
     }
 
     public void setProfileFromUserRepository(){
-        Toast.makeText(getContext(), "아직 내맘에 서로 마주앉던 그 눈빛을", Toast.LENGTH_SHORT).show();
         UserRepository userRepository = UserRepository.getInstance();
         if(userRepository.getUser()!=null) {
             ((Activity)getContext()).runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Log.d("setProfileFromUserRepo", userRepository.getUser().getUsername());
-                    Log.d("setProfileFromUserRepo", userRepository.getUser().getImg_profile());
 //                    Glide.with(getContext()).load(userRepository.getUser().getImg_profile()).centerCrop().into(imgProfile);
 //                    textUserNameMyInfo.setText(userRepository.getUser().getUsername());
 //                    textEmailMyInfo.setText(userRepository.getUser().getEmail());
-                    Toast.makeText(getContext(), "차가운 바람이 이자릴 지나면", Toast.LENGTH_SHORT).show();
                 }
             });
 
