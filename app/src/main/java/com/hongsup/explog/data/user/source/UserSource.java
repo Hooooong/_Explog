@@ -13,4 +13,6 @@ public interface UserSource {
     void setUser(User user);
 
     void clearUser();
+
+    boolean isExistUser();
 }

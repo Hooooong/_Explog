@@ -17,6 +17,8 @@ public class Content implements Serializable{
     private String content;
     @SerializedName("created_at")
     private String createdAt;
+    @SerializedName("type")
+    private String type;
     @SerializedName("photo")
     private String photoPath;
     @SerializedName("lat")
@@ -50,6 +52,14 @@ public class Content implements Serializable{
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getPhotoPath() {

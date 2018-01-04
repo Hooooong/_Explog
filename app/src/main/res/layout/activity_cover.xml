@@ -62,7 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="380dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/sign"
+                    android:src="@drawable/defaultcover"
                     android:tint="@color/colorPostTint" />
 
                 <RelativeLayout

@@ -123,22 +123,22 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
         private void setTextArea(String continent){
             switch (continent) {
-                case "0":
+                case "1":
                     textArea.setText(context.getResources().getString(R.string.asia));
                     break;
-                case "1":
+                case "2":
                     textArea.setText(context.getResources().getString(R.string.europe));
                     break;
-                case "2":
+                case "3":
                     textArea.setText(context.getResources().getString(R.string.north_americas));
                     break;
-                case "3":
+                case "4":
                     textArea.setText(context.getResources().getString(R.string.south_americas));
                     break;
-                case "4":
+                case "5":
                     textArea.setText(context.getResources().getString(R.string.oceania));
                     break;
-                case "5":
+                case "6":
                     textArea.setText(context.getResources().getString(R.string.africa));
                     break;
                 default:

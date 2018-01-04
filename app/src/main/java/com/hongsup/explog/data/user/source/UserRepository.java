@@ -34,4 +34,13 @@ public class UserRepository implements UserSource {
     public void clearUser() {
         user = null;
     }
+
+    @Override
+    public boolean isExistUser() {
+        if (user != null)
+            return true;
+        return false;
+    }
+
+
 }

@@ -1,6 +1,5 @@
 package com.hongsup.explog.view.post.adapter.viewholder;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;

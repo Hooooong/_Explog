@@ -4,7 +4,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.hongsup.explog.R;
+import com.hongsup.explog.data.Const;
 import com.hongsup.explog.data.post.Content;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Android Hong on 2017-12-11.
@@ -12,16 +16,24 @@ import com.hongsup.explog.data.post.Content;
 
 public class TextViewHolder extends PostViewHolder {
 
-    private TextView textContent;
+    @BindView(R.id.textContent)
+    TextView textContent;
 
     public TextViewHolder(View itemView) {
         super(itemView);
-        textContent = itemView.findViewById(R.id.textContent);
+        ButterKnife.bind(this, itemView);
     }
 
     @Override
     public void bind(Content data) {
-        textContent.setText(data.getContent());
+        if(Const.CONTENT_TEXT_TYPE_BASIC.equals(data.getType())){
+            // 일반글일경우
+            textContent.setText(data.getContent());
+        }else{
+            // 강조글일 경우
+            textContent.setText(data.getContent());
+        }
+
     }
 
 }

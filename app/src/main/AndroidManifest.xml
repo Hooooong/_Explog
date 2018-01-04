@@ -73,6 +73,7 @@
 
         <!-- Profile edit 페이지 -->
         <activity android:name=".view.setting.editprofile.EditProfileActivity" />
+
         <activity android:name=".view.setting.alarmsetting.AlarmSettingActivity" />
     </application>
 
