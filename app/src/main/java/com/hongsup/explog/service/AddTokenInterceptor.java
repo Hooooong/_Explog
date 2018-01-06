@@ -13,6 +13,7 @@ import okhttp3.Response;
  */
 
 public class AddTokenInterceptor implements Interceptor {
+
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
