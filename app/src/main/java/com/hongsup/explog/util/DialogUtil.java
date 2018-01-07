@@ -77,4 +77,27 @@ public class DialogUtil {
         builder.setItems(R.array.area, listener);
         return builder.create();
     }
+
+    /**
+     * Dialog 호출하는 메소드
+     *
+     * @param title : 타이틀
+     * @param msg : 메세지
+     * @param  listener :
+     */
+    public static AlertDialog exitDialog(Context context, String title, String msg, DialogInterface.OnClickListener listener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder
+                .setTitle(title)
+                .setMessage(msg)
+                .setCancelable(false) //false면 버튼을 단다는 것(다른곳을 눌러도 사라지지 않는다.), true면 반대
+                .setPositiveButton(R.string.dialog_ok, listener)
+                .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        return builder.create();
+    }
 }

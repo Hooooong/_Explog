@@ -42,4 +42,8 @@
     <string name="post_content_text">TEXT</string>
 
     <string name="not_signed_in">Go to Sign-in</string>
+
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">cancel</string>
+
 </resources>

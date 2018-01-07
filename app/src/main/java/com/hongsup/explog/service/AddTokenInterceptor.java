@@ -11,7 +11,6 @@ import okhttp3.Response;
 /**
  * Created by Android Hong on 2017-12-14.
  */
-
 public class AddTokenInterceptor implements Interceptor {
 
     @Override

@@ -38,4 +38,7 @@
 
     <string name="post_content_text">글</string>
     <string name="not_signed_in">로그인 하러 가기</string>
+
+    <string name="dialog_ok">확인</string>
+    <string name="dialog_cancel">취소</string>
 </resources>
