@@ -1,5 +1,6 @@
 package com.hongsup.explog.view.cover.presenter;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.hongsup.explog.data.post.PostCover;
@@ -19,7 +20,9 @@ import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 public class CoverPresenter implements CoverContract.iPresenter {
 
+    @NonNull
     private CoverContract.iView view;
+    @NonNull
     private PostRepository repository;
 
     public CoverPresenter() {
