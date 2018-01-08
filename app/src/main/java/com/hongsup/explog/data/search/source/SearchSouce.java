@@ -1,6 +1,6 @@
 package com.hongsup.explog.data.search.source;
 
-import com.hongsup.explog.data.post.PostCover;
+import com.hongsup.explog.data.post.PostResult;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public interface SearchSouce {
 
     interface Remote{
 
-        Observable<Response<List<PostCover>>> loadSearchResult(String word);
+        Observable<Response<PostResult>> loadSearchResult(String word);
 
     }
 }

@@ -1,6 +1,7 @@
 package com.hongsup.explog.service.api;
 
 import com.hongsup.explog.data.post.PostCover;
+import com.hongsup.explog.data.post.PostResult;
 
 import java.util.List;
 
@@ -18,5 +19,5 @@ public interface SearchAPI {
 
     @FormUrlEncoded
     @POST("/post/search/")
-    Observable<Response<List<PostCover>>> getSearchResult(@Field("word")String word);
+    Observable<Response<PostResult>> getSearchResult(@Field("word")String word);
 }

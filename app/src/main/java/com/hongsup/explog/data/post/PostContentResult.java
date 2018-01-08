@@ -20,4 +20,11 @@ public class PostContentResult {
     public void setPostContentList(List<PostContent> postContentList) {
         this.postContentList = postContentList;
     }
+
+    @Override
+    public String toString() {
+        return "PostContentResult{" +
+                "postContentList=" + postContentList +
+                '}';
+    }
 }

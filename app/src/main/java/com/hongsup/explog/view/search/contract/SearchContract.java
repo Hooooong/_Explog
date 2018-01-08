@@ -19,6 +19,7 @@ public interface SearchContract {
         void setHistoryToSearchEditText(String word);
 
         void showNoData();
+        void showSearchData();
 
         void goToPost(PostCover cover);
     }

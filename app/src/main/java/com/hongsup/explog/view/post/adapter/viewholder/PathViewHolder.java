@@ -2,6 +2,7 @@ package com.hongsup.explog.view.post.adapter.viewholder;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.hongsup.explog.R;
@@ -20,6 +21,8 @@ public class PathViewHolder extends PostViewHolder {
 
     @BindView(R.id.imgPath)
     ImageView imgPath;
+    @BindView(R.id.textCreateAt)
+    TextView textCreateAt;
 
     public PathViewHolder(View itemView) {
         super(itemView);
@@ -31,6 +34,8 @@ public class PathViewHolder extends PostViewHolder {
         Glide.with(context)
                 .load(createGoogleStaticMap(data.getLat(), data.getLng()))
                 .into(imgPath);
+
+        //textCreateAt.setText(data.getCreatedAt());
     }
 
     private String createGoogleStaticMap(double lat, double lng) {

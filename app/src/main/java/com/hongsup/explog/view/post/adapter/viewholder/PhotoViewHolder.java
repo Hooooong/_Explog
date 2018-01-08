@@ -2,6 +2,7 @@ package com.hongsup.explog.view.post.adapter.viewholder;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.hongsup.explog.R;
@@ -18,6 +19,8 @@ public class PhotoViewHolder extends PostViewHolder {
 
     @BindView(R.id.imgPhoto)
     ImageView imgPhoto;
+    @BindView(R.id.textCreateAt)
+    TextView textCreateAt;
 
     public PhotoViewHolder(View itemView) {
         super(itemView);
@@ -29,5 +32,7 @@ public class PhotoViewHolder extends PostViewHolder {
         Glide.with(context)
                 .load(data.getPhotoPath())
                 .into(imgPhoto);
+
+        //textCreateAt.setText(data.getCreatedAt());
     }
 }

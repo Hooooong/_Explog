@@ -4,14 +4,13 @@ import android.content.Context;
 import android.util.Log;
 
 import com.hongsup.explog.data.post.PostCover;
+import com.hongsup.explog.data.post.PostResult;
 import com.hongsup.explog.data.search.source.SearchRepository;
 import com.hongsup.explog.view.newspeeditem.listener.OnCoverClickListener;
 import com.hongsup.explog.view.search.adapter.contract.HistorySearchAdapterContract;
 import com.hongsup.explog.view.search.adapter.contract.SearchResultAdapterContract;
 import com.hongsup.explog.view.search.contract.SearchContract;
 import com.hongsup.explog.view.search.listener.OnWordClickListener;
-
-import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -55,20 +54,21 @@ public class SearchPresenter implements SearchContract.iPresenter, OnCoverClickL
     public void loadSearchResult(String word) {
         view.showProgress();
         // Remote Data 불러오는 곳
-        Observable<Response<List<PostCover>>> observable = repository.loadSearchResult(word);
+        Observable<Response<PostResult>> observable = repository.loadSearchResult(word);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(data -> {
                     if (data.isSuccessful()) {
                         view.hideProgress();
 
-                        searchResultModel.addItems(data.body());
-                        searchResultView.notifyAdapter();
-
-                        if (data.body().size() == 0) {
+                        if (data.body().getCount() == 0) {
                             view.showNoData();
-                        }
+                        }else{
+                            searchResultModel.addItems(data.body().getPostList());
+                            searchResultView.notifyAdapter();
 
+                            view.showSearchData();
+                        }
                     } else {
                         view.hideProgress();
                         Log.e("SearchView", " Error");

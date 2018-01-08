@@ -18,6 +18,8 @@ public class TextViewHolder extends PostViewHolder {
 
     @BindView(R.id.textContent)
     TextView textContent;
+    @BindView(R.id.textCreateAt)
+    TextView textCreateAt;
 
     public TextViewHolder(View itemView) {
         super(itemView);
@@ -33,6 +35,8 @@ public class TextViewHolder extends PostViewHolder {
             // 강조글일 경우
             textContent.setText(data.getContent());
         }
+
+        //textCreateAt.setText(data.getCreatedAt());
 
     }
 

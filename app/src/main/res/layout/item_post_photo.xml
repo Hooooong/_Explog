@@ -37,11 +37,23 @@
             android:paddingRight="10dp"
             android:paddingTop="5dp">
 
+            <TextView
+                android:id="@+id/textCreateAt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/colorGray"
+                android:textSize="8sp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/textCreateAt"
                 android:layout_toLeftOf="@+id/btnMore"
+                android:layout_toRightOf="@+id/textCreateAt"
                 android:layout_toStartOf="@+id/btnMore" />
 
             <ImageButton

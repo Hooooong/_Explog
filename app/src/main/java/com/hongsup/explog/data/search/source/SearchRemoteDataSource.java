@@ -1,6 +1,7 @@
 package com.hongsup.explog.data.search.source;
 
 import com.hongsup.explog.data.post.PostCover;
+import com.hongsup.explog.data.post.PostResult;
 import com.hongsup.explog.service.ServiceGenerator;
 import com.hongsup.explog.service.api.SearchAPI;
 
@@ -30,7 +31,7 @@ public class SearchRemoteDataSource implements SearchSouce.Remote{
     }
 
     @Override
-    public Observable<Response<List<PostCover>>> loadSearchResult(String word) {
+    public Observable<Response<PostResult>> loadSearchResult(String word) {
         return searchAPI.getSearchResult(word);
     }
 }

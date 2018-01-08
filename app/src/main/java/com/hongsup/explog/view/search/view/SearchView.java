@@ -120,7 +120,16 @@ public class SearchView extends FrameLayout implements SearchContract.iView {
 
     @Override
     public void showNoData() {
+        // 데이터가 없을 때 Layout 변경
         relativeSearching.setVisibility(VISIBLE);
+        recyclerView.setVisibility(GONE);
+    }
+
+    @Override
+    public void showSearchData() {
+        // 데이터가 있을 때 Layout 변경
+        relativeSearching.setVisibility(GONE);
+        recyclerView.setVisibility(VISIBLE);
     }
 
     /**
@@ -165,10 +174,10 @@ public class SearchView extends FrameLayout implements SearchContract.iView {
         RxTextView.textChanges(editSearch)
                 .subscribe(ch -> {
                     if (ch.length() > 0) {
-                        // 검색할 때
+                        // 검색할 때 ( 글자를 입력할 때 )
                         relativeSearching.setVisibility(GONE);
-                        recyclerView.setAdapter(searchResultAdapter);
 
+                        recyclerView.setAdapter(searchResultAdapter);
                         searchPresenter.loadSearchResult(ch.toString());
 
                         //결과가 검색이 되면 스크롤 움직였을 때 소프트 키보드 사라짐 12/20
@@ -182,8 +191,11 @@ public class SearchView extends FrameLayout implements SearchContract.iView {
                             }
                         });
                     } else {
+                        // 검색할 때 ( 글자를 입력하지 않을 떄 )
                         progressBar.setVisibility(GONE);
                         relativeSearching.setVisibility(GONE);
+
+                        recyclerView.setVisibility(VISIBLE);
                         recyclerView.setAdapter(historySearchAdapter);
                     }
                 });

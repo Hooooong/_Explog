@@ -67,6 +67,7 @@ public class PostPresenter implements PostContract.iPresenter, OnPostContentClic
                                 if (data.body().getPostContentList() == null || data.body().getPostContentList().size() == 0) {
                                     adapterModel.setInit(cover.getLiked(), cover.getLikeCount(), cover.getAuthor());
                                 } else {
+                                    Log.e(TAG, "loadPostContent: "  + data.body().getPostContentList().toString() );
                                     adapterModel.setItems(data.body().getPostContentList());
                                     adapterModel.setLikeAndFollow(cover.getLiked(), cover.getLikeCount(), cover.getAuthor());
                                 }
