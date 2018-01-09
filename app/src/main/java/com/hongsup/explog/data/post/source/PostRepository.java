@@ -63,4 +63,9 @@ public class PostRepository implements PostSource{
         return postRemoteDataSource.setPostLike(postPk);
     }
 
+    @Override
+    public Observable<Response<String>> deletePost(int postPk) {
+        return postRemoteDataSource.deletePost(postPk);
+    }
+
 }

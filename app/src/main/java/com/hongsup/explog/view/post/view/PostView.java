@@ -2,6 +2,7 @@ package com.hongsup.explog.view.post.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.support.design.widget.FloatingActionButton;
@@ -18,6 +19,7 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -28,6 +30,7 @@ import com.hongsup.explog.data.Const;
 import com.hongsup.explog.data.post.PostCover;
 import com.hongsup.explog.data.user.source.UserRepository;
 import com.hongsup.explog.util.DateUtil;
+import com.hongsup.explog.util.DialogUtil;
 import com.hongsup.explog.view.gallery.GalleryActivity;
 import com.hongsup.explog.view.post.adapter.PostAdapter;
 import com.hongsup.explog.view.post.contract.PostContract;
@@ -145,7 +148,22 @@ public class PostView implements PostContract.iView {
     public void onMenuClick(MenuItem item) {
         if (menuId == R.menu.menu_my_post) {
             // 내 글이면
+            int id = item.getItemId();
 
+            switch (id){
+                case R.id.action_cover_change:
+                    Toast.makeText(context, "cover 변경", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.action_delete:
+                    DialogUtil.showBasicDialog(context, context.getResources().getString(R.string.post_delete),context.getResources().getString(R.string.post_delete_msg), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // 확인을 누를 경우
+                            presenter.deletePost(cover.getPk());
+                        }
+                    }).show();
+                    break;
+            }
         } else {
             // 남 글이면
 

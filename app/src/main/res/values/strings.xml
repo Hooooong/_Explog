@@ -46,4 +46,7 @@
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">cancel</string>
 
+    <string name="post_delete">Post Delete</string>
+    <string name="post_delete_msg">Are you sure you want to delete this post?</string>
+
 </resources>

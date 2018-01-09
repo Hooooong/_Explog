@@ -10,6 +10,7 @@ import java.util.Map;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.Response;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -78,5 +79,14 @@ public interface PostAPI {
      */
     @POST("/post/{post_pk}/like/")
     Observable<Response<PostCover>> setPostLike(@Path("post_pk") int postPk);
+
+    /**
+     * Post Delete
+     *
+     * @param postPk
+     * @return
+     */
+    @DELETE("/post/{post_pk}/update/")
+    Observable<Response<String>> deletePost(@Path("post_pk") int postPk);
 
 }

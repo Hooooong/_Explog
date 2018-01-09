@@ -173,10 +173,10 @@ public class SearchView extends FrameLayout implements SearchContract.iView {
         // EditSearch Binding Listener
         RxTextView.textChanges(editSearch)
                 .subscribe(ch -> {
+                    relativeSearching.setVisibility(GONE);
+
                     if (ch.length() > 0) {
                         // 검색할 때 ( 글자를 입력할 때 )
-                        relativeSearching.setVisibility(GONE);
-
                         recyclerView.setAdapter(searchResultAdapter);
                         searchPresenter.loadSearchResult(ch.toString());
 
@@ -192,8 +192,9 @@ public class SearchView extends FrameLayout implements SearchContract.iView {
                         });
                     } else {
                         // 검색할 때 ( 글자를 입력하지 않을 떄 )
-                        progressBar.setVisibility(GONE);
-                        relativeSearching.setVisibility(GONE);
+                        if(progressBar.getVisibility() == VISIBLE){
+                            progressBar.setVisibility(GONE);
+                        }
 
                         recyclerView.setVisibility(VISIBLE);
                         recyclerView.setAdapter(historySearchAdapter);

@@ -60,13 +60,11 @@ public class SearchPresenter implements SearchContract.iPresenter, OnCoverClickL
                 .subscribe(data -> {
                     if (data.isSuccessful()) {
                         view.hideProgress();
-
                         if (data.body().getCount() == 0) {
                             view.showNoData();
                         }else{
                             searchResultModel.addItems(data.body().getPostList());
                             searchResultView.notifyAdapter();
-
                             view.showSearchData();
                         }
                     } else {

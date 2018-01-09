@@ -12,13 +12,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.bumptech.glide.Glide;
 import com.hongsup.explog.R;
 import com.hongsup.explog.data.user.source.UserRepository;
 import com.hongsup.explog.view.cover.CoverActivity;
 import com.hongsup.explog.view.main.contract.MainContract;
 import com.hongsup.explog.view.myinfo.MyInfoLayout;
-import com.hongsup.explog.view.myinfo.MyInfoNotLogInLayout;
+import com.hongsup.explog.view.base.NotLogInLayout;
 import com.hongsup.explog.view.newspeed.view.NewsPeedView;
 import com.hongsup.explog.view.search.view.SearchView;
 
@@ -83,8 +82,12 @@ public class MainView implements MainContract.iView, BottomNavigationView.OnNavi
                     return true;
                 case R.id.navigation_post:
                     // View 가 이미 있는지 체크
-                    Intent intent = new Intent(context, CoverActivity.class);
-                    context.startActivity(intent);
+                    if (UserRepository.getInstance().getUser() != null) {
+                        Intent intent = new Intent(context, CoverActivity.class);
+                        context.startActivity(intent);
+                    } else {
+                        frameLayout.addView(new NotLogInLayout(context));
+                    }
                     break;
                 case R.id.navigation_notification:
                     frameLayout.removeAllViews();
@@ -94,7 +97,7 @@ public class MainView implements MainContract.iView, BottomNavigationView.OnNavi
                     if (UserRepository.getInstance().getUser() != null) {
                         frameLayout.addView(new MyInfoLayout(context));
                     } else {
-                        frameLayout.addView(new MyInfoNotLogInLayout(context));
+                        frameLayout.addView(new NotLogInLayout(context));
                     }
                     return true;
             }

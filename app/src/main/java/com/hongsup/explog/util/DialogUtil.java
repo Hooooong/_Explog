@@ -85,7 +85,7 @@ public class DialogUtil {
      * @param msg : 메세지
      * @param  listener :
      */
-    public static AlertDialog exitDialog(Context context, String title, String msg, DialogInterface.OnClickListener listener){
+    public static AlertDialog showBasicDialog(Context context, String title, String msg, DialogInterface.OnClickListener listener){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setTitle(title)

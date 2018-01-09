@@ -1,4 +1,4 @@
-package com.hongsup.explog.view.myinfo;
+package com.hongsup.explog.view.base;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,18 +19,18 @@ import butterknife.OnClick;
  * Created by 정인섭 on 2017-12-19.
  */
 
-public class MyInfoNotLogInLayout extends FrameLayout {
+public class NotLogInLayout extends FrameLayout {
 
     @BindView(R.id.btnEmailMyInfo)
     Button btnEmailMyInfo;
 
-    public MyInfoNotLogInLayout(@NonNull Context context) {
+    public NotLogInLayout(@NonNull Context context) {
         super(context);
         init();
     }
 
     private void init(){
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.view_myinfo_notlogin, this, false);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.view_notlogin, this, false);
         ButterKnife.bind(this, view);
         addView(view);
     }

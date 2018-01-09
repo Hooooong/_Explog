@@ -41,4 +41,7 @@
 
     <string name="dialog_ok">확인</string>
     <string name="dialog_cancel">취소</string>
+
+    <string name="post_delete">여행기 삭제</string>
+    <string name="post_delete_msg">여행기를 삭제하시겠습니까?</string>
 </resources>

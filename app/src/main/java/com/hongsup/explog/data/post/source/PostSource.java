@@ -72,4 +72,12 @@ public interface PostSource {
      * @return
      */
     Observable<Response<PostCover>> setPostLike(int postPk);
+
+    /**
+     * Post 를 삭제하는 메소드
+     *
+     * @param postPk
+     * @return
+     */
+    Observable<Response<String>> deletePost(int postPk);
 }

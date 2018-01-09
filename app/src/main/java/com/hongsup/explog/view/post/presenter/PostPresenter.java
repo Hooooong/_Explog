@@ -67,7 +67,7 @@ public class PostPresenter implements PostContract.iPresenter, OnPostContentClic
                                 if (data.body().getPostContentList() == null || data.body().getPostContentList().size() == 0) {
                                     adapterModel.setInit(cover.getLiked(), cover.getLikeCount(), cover.getAuthor());
                                 } else {
-                                    Log.e(TAG, "loadPostContent: "  + data.body().getPostContentList().toString() );
+                                    Log.e(TAG, "loadPostContent: " + data.body().getPostContentList().toString());
                                     adapterModel.setItems(data.body().getPostContentList());
                                     adapterModel.setLikeAndFollow(cover.getLiked(), cover.getLikeCount(), cover.getAuthor());
                                 }
@@ -153,6 +153,23 @@ public class PostPresenter implements PostContract.iPresenter, OnPostContentClic
                             view.hideProgress();
                             Log.e(TAG, "uploadPostPhoto: " + throwable.getMessage());
                         });
+    }
+
+    @Override
+    public void deletePost(int postPk) {
+        Observable<Response<String>> observable = repository.deletePost(postPk);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(data ->{
+                    Log.e(TAG, "deletePost: " + data.code() + ", " + data.message());
+                    if(data.isSuccessful()){
+                        Log.e(TAG, "deletePost: post 삭제 완료"  );
+                    }else{
+                        Log.e(TAG, "deletePost: post 삭제 실패1"  );
+                    }
+                }, throwable -> {
+                    Log.e(TAG, "deletePost: post 삭제 실패2"  );
+                });
     }
 
     @Override

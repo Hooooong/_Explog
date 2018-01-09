@@ -46,5 +46,7 @@ public interface PostContract {
         void uploadPostPath(double lat, double lng);
 
         void uploadPostPhoto(String photoPath);
+
+        void deletePost(int postPk);
     }
 }

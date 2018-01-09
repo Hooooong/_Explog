@@ -117,6 +117,11 @@ public class PostRemoteDataSource implements PostSource {
         return postTokenAPI.setPostLike(postPk);
     }
 
+    @Override
+    public Observable<Response<String>> deletePost(int postPk) {
+        return postTokenAPI.deletePost(postPk);
+    }
+
 
     private RequestBody toRequestBody(String json) {
         RequestBody body = RequestBody.create(MediaType.parse("text/plain"), json);
