@@ -14,6 +14,7 @@ import com.hongsup.explog.view.post.listener.OnPostLikeClickListener;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
@@ -67,7 +68,7 @@ public class PostPresenter implements PostContract.iPresenter, OnPostContentClic
                                 if (data.body().getPostContentList() == null || data.body().getPostContentList().size() == 0) {
                                     adapterModel.setInit(cover.getLiked(), cover.getLikeCount(), cover.getAuthor());
                                 } else {
-                                    Log.e(TAG, "loadPostContent: " + data.body().getPostContentList().toString());
+                                    // Log.e(TAG, "loadPostContent: " + data.body().getPostContentList().toString());
                                     adapterModel.setItems(data.body().getPostContentList());
                                     adapterModel.setLikeAndFollow(cover.getLiked(), cover.getLikeCount(), cover.getAuthor());
                                 }
@@ -157,7 +158,7 @@ public class PostPresenter implements PostContract.iPresenter, OnPostContentClic
 
     @Override
     public void deletePost(int postPk) {
-        Observable<Response<String>> observable = repository.deletePost(postPk);
+        Observable<Response<Void>> observable = repository.deletePost(postPk);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(data ->{
@@ -167,8 +168,6 @@ public class PostPresenter implements PostContract.iPresenter, OnPostContentClic
                     }else{
                         Log.e(TAG, "deletePost: post 삭제 실패1"  );
                     }
-                }, throwable -> {
-                    Log.e(TAG, "deletePost: post 삭제 실패2"  );
                 });
     }
 

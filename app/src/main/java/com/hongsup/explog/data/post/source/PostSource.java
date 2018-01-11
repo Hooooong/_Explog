@@ -6,6 +6,7 @@ import com.hongsup.explog.data.post.PostCover;
 import com.hongsup.explog.data.post.PostResult;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 /**
@@ -79,5 +80,5 @@ public interface PostSource {
      * @param postPk
      * @return
      */
-    Observable<Response<String>> deletePost(int postPk);
+    Observable<Response<Void>> deletePost(int postPk);
 }

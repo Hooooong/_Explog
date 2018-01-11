@@ -6,6 +6,7 @@ import com.hongsup.explog.data.post.PostCover;
 import com.hongsup.explog.data.post.PostResult;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 /**
@@ -64,7 +65,7 @@ public class PostRepository implements PostSource{
     }
 
     @Override
-    public Observable<Response<String>> deletePost(int postPk) {
+    public Observable<Response<Void>> deletePost(int postPk) {
         return postRemoteDataSource.deletePost(postPk);
     }
 

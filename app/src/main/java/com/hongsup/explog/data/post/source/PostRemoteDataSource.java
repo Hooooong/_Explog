@@ -16,6 +16,7 @@ import java.util.Map;
 import io.reactivex.Observable;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 /**
@@ -118,7 +119,7 @@ public class PostRemoteDataSource implements PostSource {
     }
 
     @Override
-    public Observable<Response<String>> deletePost(int postPk) {
+    public Observable<Response<Void>> deletePost(int postPk) {
         return postTokenAPI.deletePost(postPk);
     }
 
