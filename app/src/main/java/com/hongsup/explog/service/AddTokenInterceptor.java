@@ -32,6 +32,12 @@ public class AddTokenInterceptor implements Interceptor {
 
         } catch (ProtocolException e) {
 
+            /**
+             *  Code : 204 일 경우에는
+             *  Response 를 새로 생성하여 클라이언트에 제공
+             *
+             *  ProtocolException : Content-Length 가 0 보다 크기 때문에 Error 가 발생하는 듯...
+             */
             response = new Response.Builder()
                     .request(chain.request())
                     .code(204)

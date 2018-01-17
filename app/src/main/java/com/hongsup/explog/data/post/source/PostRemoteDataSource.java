@@ -88,7 +88,6 @@ public class PostRemoteDataSource implements PostSource {
 
     @Override
     public Observable<Response<PostContent>> uploadPostText(int postPk, String text, String date) {
-
         return postTokenAPI.uploadPostText(postPk, text, date);
     }
 
@@ -101,10 +100,6 @@ public class PostRemoteDataSource implements PostSource {
     public Observable<Response<PostContent>> uploadPostPhoto(int postPk, String photoPath) {
         Map<String, RequestBody> requestBodyMap = new HashMap<>();
         File file = new File(photoPath);
-
-        long fileSize = file.length();
-        Log.e("FileSize", "uploadPostPhoto: " + fileSize + "byte" );
-
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
         requestBodyMap.put("photo\"; filename=\"" + file.getName(), requestFile);
