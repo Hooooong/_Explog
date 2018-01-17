@@ -6,7 +6,6 @@ import com.hongsup.explog.data.post.PostCover;
 import com.hongsup.explog.data.post.PostResult;
 
 import io.reactivex.Observable;
-import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 /**
@@ -27,7 +26,7 @@ public interface PostSource {
      * @param cover
      * @return
      */
-    Observable<Response<PostCover>> uploadPostCover(PostCover cover);
+    Observable<Response<PostCover>> createPostCover(PostCover cover);
 
     /**
      * Post 에 대한 내용 가져오는 메소드

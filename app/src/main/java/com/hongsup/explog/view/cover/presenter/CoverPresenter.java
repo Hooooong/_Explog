@@ -35,13 +35,13 @@ public class CoverPresenter implements CoverContract.iPresenter {
     }
 
     @Override
-    public void uploadCover(PostCover cover) {
+    public void createCover(PostCover cover) {
         view.showProgress();
-        Observable<Response<PostCover>> observable = repository.uploadPostCover(cover);
+        Observable<Response<PostCover>> observable = repository.createPostCover(cover);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(data -> {
-                    Log.e(TAG, "uploadCover: " + data.code() +", " + data.message() );
+                    Log.e(TAG, "createCover: " + data.code() +", " + data.message() );
                     if(data.isSuccessful()){
                         view.hideProgress();
                         view.goToPost(data.body());
@@ -52,7 +52,7 @@ public class CoverPresenter implements CoverContract.iPresenter {
                 }, throwable -> {
                     view.hideProgress();
                     view.showError("error 2" + throwable.getMessage());
-                    Log.e(TAG, "uploadCover: " + throwable.getMessage());
+                    Log.e(TAG, "createCover: " + throwable.getMessage());
                 });
     }
 }

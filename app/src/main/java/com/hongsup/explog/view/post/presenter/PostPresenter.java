@@ -14,7 +14,6 @@ import com.hongsup.explog.view.post.listener.OnPostLikeClickListener;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
@@ -57,6 +56,7 @@ public class PostPresenter implements PostContract.iPresenter, OnPostContentClic
         // PK 설정
         this.postPk = cover.getPk();
         view.showProgress();
+
         Observable<Response<PostContentResult>> observable = repository.getPostContentList(postPk);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -162,12 +162,12 @@ public class PostPresenter implements PostContract.iPresenter, OnPostContentClic
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(data ->{
-                    Log.e(TAG, "deletePost: " + data.code() + ", " + data.message());
-                    if(data.isSuccessful()){
-                        Log.e(TAG, "deletePost: post 삭제 완료"  );
-                    }else{
-                        Log.e(TAG, "deletePost: post 삭제 실패1"  );
-                    }
+                    Log.e(TAG, "deletePost: " + data.code()  + ", " + data.message());
+                    Log.e(TAG, "deletePost: post 삭제 완료"  );
+                    view.deletePost(true);
+                },throwable -> {
+                    Log.e(TAG, "deletePost: post 삭제 실패");
+                    view.deletePost(false);
                 });
     }
 

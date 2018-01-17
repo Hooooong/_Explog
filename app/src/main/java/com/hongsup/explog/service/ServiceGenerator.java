@@ -39,14 +39,14 @@ public class ServiceGenerator {
     }
 
     public static<I> I createInterceptor(Class<I> className){
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.addNetworkInterceptor(new AddTokenInterceptor());
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(SERVER_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient.build())
+                /*
+                 Interceptor 추가
+                */
+                .client(new OkHttpClient.Builder().addInterceptor(new AddTokenInterceptor()).build())
                 .build();
         return retrofit.create(className);
     }

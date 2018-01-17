@@ -9,7 +9,6 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
@@ -88,6 +87,6 @@ public interface PostAPI {
      * @return
      */
     @DELETE("/post/{post_pk}/update/")
-    Observable<Response<Void>> deletePost(@Path("post_pk") int postPk);
+    Observable<Response<Void>> deletePost( @Path("post_pk") int postPk);
 
 }

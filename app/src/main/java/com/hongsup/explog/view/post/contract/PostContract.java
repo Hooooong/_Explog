@@ -28,6 +28,8 @@ public interface PostContract {
 
         void onMenuClick(MenuItem item);
 
+        void deletePost(boolean flag);
+
         // void moveToScrollMax();
     }
 

@@ -6,7 +6,6 @@ import com.hongsup.explog.data.post.PostCover;
 import com.hongsup.explog.data.post.PostResult;
 
 import io.reactivex.Observable;
-import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 /**
@@ -35,8 +34,8 @@ public class PostRepository implements PostSource{
     }
 
     @Override
-    public Observable<Response<PostCover>> uploadPostCover(PostCover cover) {
-        return postRemoteDataSource.uploadPostCover(cover);
+    public Observable<Response<PostCover>> createPostCover(PostCover cover) {
+        return postRemoteDataSource.createPostCover(cover);
     }
 
     @Override

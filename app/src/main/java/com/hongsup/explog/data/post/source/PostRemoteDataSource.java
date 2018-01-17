@@ -16,7 +16,6 @@ import java.util.Map;
 import io.reactivex.Observable;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 /**
@@ -48,7 +47,7 @@ public class PostRemoteDataSource implements PostSource {
     }
 
     @Override
-    public Observable<Response<PostCover>> uploadPostCover(PostCover cover) {
+    public Observable<Response<PostCover>> createPostCover(PostCover cover) {
 
         Map<String, RequestBody> requestBodyMap = new HashMap<>();
         requestBodyMap.put("title", toRequestBody(cover.getTitle()));

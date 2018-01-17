@@ -181,10 +181,10 @@ public class CoverView implements CoverContract.iView {
                 if(!textEndDate.getText().toString().equals(context.getResources().getString(R.string.txt_end_date))){
                     cover.setEndDate(DateUtil.setConvertDate(textEndDate.getText().toString()));
                 }else{
-                    cover.setEndDate(null);
+                    cover.setEndDate(DateUtil.setConvertDate(textStartDate.getText().toString()));
                 }
 
-                presenter.uploadCover(cover);
+                presenter.createCover(cover);
                 break;
         }
     }

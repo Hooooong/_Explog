@@ -28,6 +28,6 @@ public interface CoverContract {
     }
     interface iPresenter{
         void attachView(iView view);
-        void uploadCover(PostCover cover);
+        void createCover(PostCover cover);
     }
 }

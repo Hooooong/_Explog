@@ -170,6 +170,16 @@ public class PostView implements PostContract.iView {
         }
     }
 
+    @Override
+    public void deletePost(boolean flag) {
+        if(flag){
+            Toast.makeText(context, "여행기 삭제가 성공하였습니다.", Toast.LENGTH_SHORT).show();
+            ((Activity)context).finish();
+        }else{
+            Toast.makeText(context, "여행기 삭제가 실패햐였습니다. 다시 시도해주시기 바랍니다.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void initToolbar() {
         ((AppCompatActivity) context).setSupportActionBar(toolbar);
         ((AppCompatActivity) context).getSupportActionBar().setTitle("");
