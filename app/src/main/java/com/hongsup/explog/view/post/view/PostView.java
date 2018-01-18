@@ -235,7 +235,7 @@ public class PostView implements PostContract.iView {
 
     @OnClick(R.id.fab)
     public void animateFAB() {
-        if (isFabOpen) {
+        /*if (isFabOpen) {
 
             fab.startAnimation(rotate_backward);
             fabText.startAnimation(fab_close);
@@ -255,7 +255,10 @@ public class PostView implements PostContract.iView {
             fabPhoto.setClickable(true);
             fabPath.setClickable(true);
             isFabOpen = true;
-        }
+        }*/
+
+
+
     }
 
     @OnClick(R.id.fab_text)

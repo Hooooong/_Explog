@@ -24,7 +24,7 @@ public class Const {
     public static final String CONTENT_TYPE_FOOTER = "footer";
 
     public static final String CONTENT_TEXT_TYPE_BASIC = "b";
-    public static final String CONTENT_TEXT_TYPE_HIGHLISTE = "h";
+    public static final String CONTENT_TEXT_TYPE_HIGHLIGHT = "h";
 
     public static final String INTENT_EXTRA_COVER = "COVER";
     public static final String INTENT_EXTRA_TEXT = "TEXT";
