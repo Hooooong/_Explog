@@ -11,10 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -57,6 +60,7 @@ public class PostView implements PostContract.iView {
     private PostAdapter postAdapter;
     private int menuId;
     private boolean isFabOpen;
+    PostItemDialog postItemDialog;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -150,12 +154,12 @@ public class PostView implements PostContract.iView {
             // 내 글이면
             int id = item.getItemId();
 
-            switch (id){
+            switch (id) {
                 case R.id.action_cover_change:
                     Toast.makeText(context, "cover 변경", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.action_delete:
-                    DialogUtil.showBasicDialog(context, context.getResources().getString(R.string.post_delete),context.getResources().getString(R.string.post_delete_msg), new DialogInterface.OnClickListener() {
+                    DialogUtil.showBasicDialog(context, context.getResources().getString(R.string.post_delete), context.getResources().getString(R.string.post_delete_msg), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             // 확인을 누를 경우
@@ -172,10 +176,10 @@ public class PostView implements PostContract.iView {
 
     @Override
     public void deletePost(boolean flag) {
-        if(flag){
+        if (flag) {
             Toast.makeText(context, "여행기 삭제가 성공하였습니다.", Toast.LENGTH_SHORT).show();
-            ((Activity)context).finish();
-        }else{
+            ((Activity) context).finish();
+        } else {
             Toast.makeText(context, "여행기 삭제가 실패햐였습니다. 다시 시도해주시기 바랍니다.", Toast.LENGTH_SHORT).show();
         }
     }
@@ -258,7 +262,30 @@ public class PostView implements PostContract.iView {
         }*/
 
 
+        postItemDialog = new PostItemDialog(context,
+                view -> {
+                    // 일반 글 클릭했을 경우
 
+                },
+                view -> {
+                    // 강조글 클릭했을 경우
+
+                },
+                view -> {
+                    // 사진 클릭했을 경우
+
+                },
+                view -> {
+                    // 경로 클릭햇을 경우
+
+                },
+                view -> {
+                    // layout 클릭햇을 경우
+                    postItemDialog.dismiss();
+                });
+
+        postItemDialog.setCanceledOnTouchOutside(true);
+        postItemDialog.show();
     }
 
     @OnClick(R.id.fab_text)
