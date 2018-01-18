@@ -1,10 +1,7 @@
 package com.hongsup.explog.view.main;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.hongsup.explog.view.main.contract.MainContract;
 import com.hongsup.explog.view.main.presenter.MainPresenter;
@@ -12,12 +9,15 @@ import com.hongsup.explog.view.main.view.MainView;
 
 public class MainActivity extends AppCompatActivity {
 
+    MainContract.iView mainView;
+    MainContract.iPresenter mainPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        MainContract.iView mainView = new MainView(this);
-        MainContract.iPresenter mainPresenter = new MainPresenter();
+        mainView = new MainView(this);
+        mainPresenter = new MainPresenter();
 
         mainPresenter.attachView(mainView);
         mainView.setPresenter(mainPresenter);
@@ -30,7 +30,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+    }
 
-
+    @Override
+    public void onBackPressed() {
+        mainPresenter.backPressedDisposable(System.currentTimeMillis());
     }
 }

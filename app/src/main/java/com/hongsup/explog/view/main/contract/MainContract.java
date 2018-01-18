@@ -3,6 +3,7 @@ package com.hongsup.explog.view.main.contract;
 
 import android.view.View;
 
+
 /**
  * Created by Android Hong on 2017-11-30.
  */
@@ -16,5 +17,7 @@ public interface MainContract{
 
     interface iPresenter{
         void attachView(iView view);
+
+        void backPressedDisposable(long time);
     }
 }
