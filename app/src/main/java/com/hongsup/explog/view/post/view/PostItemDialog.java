@@ -57,7 +57,7 @@ public class PostItemDialog extends Dialog {
         super.onCreate(savedInstanceState);
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
         layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-        layoutParams.dimAmount = 0.7f;
+        layoutParams.dimAmount = 0.8f;
         getWindow().setAttributes(layoutParams);
         setContentView(R.layout.post_item_select);
         ButterKnife.bind(this);

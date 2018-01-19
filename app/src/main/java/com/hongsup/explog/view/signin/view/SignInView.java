@@ -147,6 +147,7 @@ public class SignInView implements SignInContract.iView {
     @Override
     public void goMain() {
         Intent intent = new Intent(context, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
         ((Activity) context).finish();
     }

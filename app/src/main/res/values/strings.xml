@@ -39,7 +39,8 @@
     <string name="menu_post_delete">Post Delete</string>
     <string name="choose_area">Choice Area</string>
 
-    <string name="post_content_text">TEXT</string>
+    <string name="post_content_basic_text">NORMAL TEXT</string>
+    <string name="post_content_highlight_text">HIGHLIGHT TEXT</string>
 
     <string name="not_signed_in">Go to Sign-in</string>
 

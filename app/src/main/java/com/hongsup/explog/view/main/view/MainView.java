@@ -82,6 +82,7 @@ public class MainView implements MainContract.iView, BottomNavigationView.OnNavi
                     return true;
                 case R.id.navigation_post:
                     // View 가 이미 있는지 체크
+                    frameLayout.removeAllViews();
                     if (UserRepository.getInstance().getUser() != null) {
                         Intent intent = new Intent(context, CoverActivity.class);
                         context.startActivity(intent);
