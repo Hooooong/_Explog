@@ -25,7 +25,10 @@ public class MainPresenter implements MainContract.iPresenter {
     }
 
     /*
+
+    <참고>
     https://medium.com/rainist-engineering/handling-back-button-with-rxjava-d948d8d3db80
+
      */
     @Override
     public void backPressedDisposable(long time) {

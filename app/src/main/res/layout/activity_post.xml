@@ -126,48 +126,6 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:src="@drawable/ic_fab_edit"
-        app:fabSize="mini"
-        android:visibility="invisible"
-        app:backgroundTint="@color/colorFab"
-        android:layout_marginBottom="80dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_photo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:src="@drawable/ic_fab_photo"
-        app:fabSize="mini"
-        android:visibility="invisible"
-        app:backgroundTint="@color/colorFab"
-        android:layout_marginBottom="64dp"
-        android:layout_marginRight="64dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_path"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:src="@drawable/ic_fab_path"
-        app:backgroundTint="@color/colorFab"
-        app:fabSize="mini"
-        android:visibility="invisible"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="80dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp" />
-
-    <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
