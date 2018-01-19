@@ -85,9 +85,9 @@ public class PostPresenter implements PostContract.iPresenter, OnPostContentClic
     }
 
     @Override
-    public void uploadPostText(String text, String date) {
+    public void uploadPostText(String text, String type) {
         view.showProgress();
-        Observable<Response<PostContent>> observable = repository.uploadPostText(postPk, text, date);
+        Observable<Response<PostContent>> observable = repository.uploadPostText(postPk, text, type);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(data -> {

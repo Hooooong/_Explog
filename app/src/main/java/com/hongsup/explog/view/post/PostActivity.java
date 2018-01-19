@@ -61,8 +61,9 @@ public class PostActivity extends AppCompatActivity implements OnPostContentClic
                      Post 의 글 작성이 완료된 경우
                      */
                     String text = data.getStringExtra(Const.INTENT_EXTRA_TEXT);
-                    String date = data.getStringExtra(Const.INTENT_EXTRA_DATE);
-                    postPresenter.uploadPostText(text, date);
+                    String type = data.getStringExtra(Const.INTENT_EXTRA_TYPE);
+
+                    postPresenter.uploadPostText(text, type);
                 }
                 break;
             case Const.REQ_GALLERY:

@@ -44,8 +44,8 @@ public class PostRepository implements PostSource{
     }
 
     @Override
-    public Observable<Response<PostContent>> uploadPostText(int postPk, String text, String date) {
-        return postRemoteDataSource.uploadPostText(postPk, text, date);
+    public Observable<Response<PostContent>> uploadPostText(int postPk, String text, String type) {
+        return postRemoteDataSource.uploadPostText(postPk, text, type);
     }
 
     @Override

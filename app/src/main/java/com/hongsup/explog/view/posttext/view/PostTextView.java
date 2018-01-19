@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -64,9 +65,7 @@ public class PostTextView implements PostTextContract.iView {
          수정 시 들어오는 Content
          */
         content = (Content) postIntent.getSerializableExtra(Const.INTENT_EXTRA_TEXT);
-        type=  postIntent.getStringExtra("type");
-
-        Log.e(TAG, "PostTextView: " + type);
+        type =  postIntent.getStringExtra(Const.INTENT_EXTRA_TYPE);
 
         initToolbar();
         initView();
@@ -82,12 +81,13 @@ public class PostTextView implements PostTextContract.iView {
             editText.setTypeface(null, Typeface.NORMAL);
         }else{
             textCount.setVisibility(View.VISIBLE);
+            editText.setGravity(Gravity.CENTER_HORIZONTAL);
             editText.setTypeface(null, Typeface.BOLD);
-            editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(60)});
+            editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
 
             RxTextView.textChangeEvents(editText)
                     .subscribe(ch -> {
-                        textCount.setText(ch.text().length() + " / 60");
+                        textCount.setText(ch.text().length() + " / 20");
                     });
         }
 
@@ -129,8 +129,7 @@ public class PostTextView implements PostTextContract.iView {
                 } else {
                     // 글 작성인 경우
                     uploadIntent.putExtra(Const.INTENT_EXTRA_TEXT, editText.getText().toString());
-                    uploadIntent.putExtra(Const.INTENT_EXTRA_DATE, "2017-12-15");
-
+                    uploadIntent.putExtra(Const.INTENT_EXTRA_TYPE, type);
                     ((Activity) context).setResult(Activity.RESULT_OK, uploadIntent);
                     ((Activity) context).finish();
                 }

@@ -43,7 +43,7 @@ public interface PostContract {
 
         void setPostAdapterView(PostAdapterContract.iView view);
 
-        void uploadPostText(String text, String date);
+        void uploadPostText(String text, String type);
 
         void uploadPostPath(double lat, double lng);
 

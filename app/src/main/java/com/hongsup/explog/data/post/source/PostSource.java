@@ -41,10 +41,10 @@ public interface PostSource {
      *
      * @param postPk
      * @param text : 내용
-     * @param date : 입력 날짜
+     * @param type : 글의 type
      * @return
      */
-    Observable<Response<PostContent>> uploadPostText(int postPk, String text, String date);
+    Observable<Response<PostContent>> uploadPostText(int postPk, String text, String type);
 
     /**
      * Post 에 대한 위치 추가하는 메소드

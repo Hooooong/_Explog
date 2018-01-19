@@ -28,6 +28,7 @@ public class Const {
 
     public static final String INTENT_EXTRA_COVER = "COVER";
     public static final String INTENT_EXTRA_TEXT = "TEXT";
+    public static final String INTENT_EXTRA_TYPE = "TYPE";
     public static final String INTENT_EXTRA_PHOTO = "PHOTO";
     public static final String INTENT_EXTRA_DATE ="DATE";
 

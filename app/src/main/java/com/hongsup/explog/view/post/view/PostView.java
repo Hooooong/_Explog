@@ -223,18 +223,21 @@ public class PostView implements PostContract.iView {
                 view -> {
                     // 일반 글 클릭했을 경우
                     contentIntent = new Intent(context, PostTextActivity.class);
-                    contentIntent.putExtra("type", Const.CONTENT_TEXT_TYPE_BASIC);
+                    contentIntent.putExtra(Const.INTENT_EXTRA_TYPE, Const.CONTENT_TEXT_TYPE_BASIC);
                     ((Activity) context).startActivityForResult(contentIntent, Const.REQ_TEXT);
                     postItemDialog.dismiss();
                 },
                 view -> {
                     // 강조글 클릭했을 경우
+                    contentIntent = new Intent(context, PostTextActivity.class);
+                    contentIntent.putExtra(Const.INTENT_EXTRA_TYPE, Const.CONTENT_TEXT_TYPE_HIGHLIGHT);
+                    ((Activity) context).startActivityForResult(contentIntent, Const.REQ_TEXT);
                     postItemDialog.dismiss();
                 },
                 view -> {
                     // 사진 클릭했을 경우
                     contentIntent = new Intent(context, GalleryActivity.class);
-                    contentIntent.putExtra("type", Const.CONTENT_TEXT_TYPE_HIGHLIGHT);
+                    contentIntent.putExtra(Const.INTENT_EXTRA_TYPE, Const.CONTENT_TEXT_TYPE_HIGHLIGHT);
                     ((Activity) context).startActivityForResult(contentIntent, Const.REQ_GALLERY);
                     postItemDialog.dismiss();
                 },

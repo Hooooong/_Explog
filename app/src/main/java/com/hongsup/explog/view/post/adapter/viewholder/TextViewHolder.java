@@ -1,5 +1,8 @@
 package com.hongsup.explog.view.post.adapter.viewholder;
 
+import android.graphics.Typeface;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -34,10 +37,12 @@ public class TextViewHolder extends PostViewHolder {
         }else{
             // 강조글일 경우
             textContent.setText(data.getContent());
+            // SP 단위로 입력 가능할 수 있도록 한다.
+            textContent.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
+            textContent.setGravity(Gravity.CENTER_HORIZONTAL);
+            textContent.setTypeface(null, Typeface.BOLD);
         }
-
         //textCreateAt.setText(data.getCreatedAt());
-
     }
 
 }
