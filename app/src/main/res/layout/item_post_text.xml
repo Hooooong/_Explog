@@ -37,24 +37,14 @@
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
             />
-
-        <ImageView
-            android:id="@+id/imgRightQuote"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:visibility="gone"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/textContent"
-            android:src="@drawable/ic_right_quote" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="24dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/imgRightQuote"
+            android:layout_below="@+id/textContent"
             android:paddingBottom="5dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"

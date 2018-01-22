@@ -30,9 +30,6 @@ public class TextViewHolder extends PostViewHolder {
 
     @BindView(R.id.imgLeftQuote)
     ImageView imgLeftQuote;
-    @BindView(R.id.imgRightQuote)
-    ImageView imgRightQuote;
-
 
     public TextViewHolder(View itemView) {
         super(itemView);
@@ -52,14 +49,13 @@ public class TextViewHolder extends PostViewHolder {
             textContent.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
             textContent.setGravity(Gravity.CENTER_HORIZONTAL);
             textContent.setTypeface(null, Typeface.BOLD);
-
             imgLeftQuote.setVisibility(View.VISIBLE);
-            imgRightQuote.setVisibility(View.VISIBLE);
         }
 
         if(!checkMyPost){
             btnMore.setVisibility(View.GONE);
         }
+
     }
 
 }
