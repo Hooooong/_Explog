@@ -1,6 +1,7 @@
 package com.hongsup.explog.view.post.adapter.viewholder;
 
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +24,8 @@ public class PathViewHolder extends PostViewHolder {
     ImageView imgPath;
     @BindView(R.id.textCreateAt)
     TextView textCreateAt;
+    @BindView(R.id.btnMore)
+    ImageButton btnMore;
 
     public PathViewHolder(View itemView) {
         super(itemView);
@@ -35,7 +38,9 @@ public class PathViewHolder extends PostViewHolder {
                 .load(createGoogleStaticMap(data.getLat(), data.getLng()))
                 .into(imgPath);
 
-        //textCreateAt.setText(data.getCreatedAt());
+        if(!checkMyPost){
+            btnMore.setVisibility(View.GONE);
+        }
     }
 
     private String createGoogleStaticMap(double lat, double lng) {

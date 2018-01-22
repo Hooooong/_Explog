@@ -4,6 +4,8 @@ import android.graphics.Typeface;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hongsup.explog.R;
@@ -23,10 +25,19 @@ public class TextViewHolder extends PostViewHolder {
     TextView textContent;
     @BindView(R.id.textCreateAt)
     TextView textCreateAt;
+    @BindView(R.id.btnMore)
+    ImageButton btnMore;
+
+    @BindView(R.id.imgLeftQuote)
+    ImageView imgLeftQuote;
+    @BindView(R.id.imgRightQuote)
+    ImageView imgRightQuote;
+
 
     public TextViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+
     }
 
     @Override
@@ -41,8 +52,14 @@ public class TextViewHolder extends PostViewHolder {
             textContent.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
             textContent.setGravity(Gravity.CENTER_HORIZONTAL);
             textContent.setTypeface(null, Typeface.BOLD);
+
+            imgLeftQuote.setVisibility(View.VISIBLE);
+            imgRightQuote.setVisibility(View.VISIBLE);
         }
-        //textCreateAt.setText(data.getCreatedAt());
+
+        if(!checkMyPost){
+            btnMore.setVisibility(View.GONE);
+        }
     }
 
 }

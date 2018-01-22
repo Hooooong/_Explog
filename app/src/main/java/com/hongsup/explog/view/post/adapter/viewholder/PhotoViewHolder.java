@@ -1,6 +1,7 @@
 package com.hongsup.explog.view.post.adapter.viewholder;
 
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,6 +22,8 @@ public class PhotoViewHolder extends PostViewHolder {
     ImageView imgPhoto;
     @BindView(R.id.textCreateAt)
     TextView textCreateAt;
+    @BindView(R.id.btnMore)
+    ImageButton btnMore;
 
     public PhotoViewHolder(View itemView) {
         super(itemView);
@@ -33,6 +36,8 @@ public class PhotoViewHolder extends PostViewHolder {
                 .load(data.getPhotoPath())
                 .into(imgPhoto);
 
-        //textCreateAt.setText(data.getCreatedAt());
+        if(!checkMyPost){
+            btnMore.setVisibility(View.GONE);
+        }
     }
 }

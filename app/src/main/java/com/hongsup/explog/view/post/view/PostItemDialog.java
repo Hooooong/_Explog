@@ -59,7 +59,7 @@ public class PostItemDialog extends Dialog {
         layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         layoutParams.dimAmount = 0.8f;
         getWindow().setAttributes(layoutParams);
-        setContentView(R.layout.post_item_select);
+        setContentView(R.layout.view_post_select);
         ButterKnife.bind(this);
 
         setListener();

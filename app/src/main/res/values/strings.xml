@@ -50,4 +50,9 @@
     <string name="post_delete">Post Delete</string>
     <string name="post_delete_msg">Are you sure you want to delete this post?</string>
 
+    <string name="post_item_basic_text">Basic Text</string>
+    <string name="post_item_highLight_text">HighLight Text</string>
+    <string name="post_item_photo">Photo</string>
+    <string name="post_item_path">Path</string>
+
 </resources>

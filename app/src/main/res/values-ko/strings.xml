@@ -46,4 +46,9 @@
 
     <string name="post_delete">여행기 삭제</string>
     <string name="post_delete_msg">여행기를 삭제하시겠습니까?</string>
+
+    <string name="post_item_basic_text">일반글</string>
+    <string name="post_item_highLight_text">강조글</string>
+    <string name="post_item_photo">사진</string>
+    <string name="post_item_path">경로</string>
 </resources>
