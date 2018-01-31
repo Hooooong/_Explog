@@ -17,7 +17,5 @@ public interface MainContract{
 
     interface iPresenter{
         void attachView(iView view);
-
-        void backPressedDisposable(long time);
     }
 }

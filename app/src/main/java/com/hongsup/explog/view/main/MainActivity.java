@@ -31,9 +31,4 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
     }
-
-    @Override
-    public void onBackPressed() {
-        mainPresenter.backPressedDisposable(System.currentTimeMillis());
-    }
 }
