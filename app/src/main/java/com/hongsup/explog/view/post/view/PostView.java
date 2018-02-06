@@ -114,8 +114,7 @@ public class PostView implements PostContract.iView {
     }
 
     @Override
-    public void showError() {
-    }
+    public void showError() {}
 
     @Override
     public void setMenu(Menu menu) {
