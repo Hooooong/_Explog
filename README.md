@@ -320,9 +320,8 @@
         }
 
         @Override
-        public Observable<Response<PostResult>> getPostList(int category) {
-            // RESTful API 호출
-            return postAPI.getPostList(category);
+        public Observable<Response<PostContentResult>> getPostContentList(int postPk) {
+            return postAPI.getPostContentList(postPk);
         }
         ```
 
