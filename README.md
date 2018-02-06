@@ -405,7 +405,7 @@
 
     3. Interceptor 사용
 
-        - HTTP 통신 시 필수로 보내야 되는 값들(Authorization 등)을 OkHTTP3 를 통해 Custom하게 보낼 수 있다.
+        - HTTP 통신 전, 후로 필수로 송수신 되는 값들(Authorization 등)을 OkHTTP3 를 통해 Custom하게 활용할 수 있다.
 
         - Interceptor 생성 [[소스코드]](https://github.com/Hooooong/_Explog/blob/master/app/src/main/java/com/hongsup/explog/service/AddTokenInterceptor.java)
 
@@ -602,9 +602,190 @@
 
     - SQLite를 사용하여 최근 검색어 저장 및 활용
 
+    1. DBHelperUtil 작성[[소스코드]](https://github.com/Hooooong/_Explog/blob/master/app/src/main/java/com/hongsup/explog/util/DBHelperUtil.java)
+
+        - SQLiteOpenHelper 를 상속받아 작성
+
+        ```java
+        public class DBHelperUtil extends SQLiteOpenHelper {
+
+            private static final String DB_NAME = "explog.db";
+            private static final int DB_VERSION = 1;
+
+            private static DBHelperUtil instance = null;
+
+            public static DBHelperUtil getInstance(Context context) {
+                if (instance == null) {
+                    instance = new DBHelperUtil(context);
+                }
+                return instance;
+            }
+
+            private DBHelperUtil(Context context) {
+                super(context, DB_NAME, null, DB_VERSION);
+            }
+
+            @Override
+            public void onCreate(SQLiteDatabase db) {
+                String createQuery = "CREATE TABLE 'history' (" +
+                        " 'id' INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        " 'word' TEXT " +
+                        " )";
+                db.execSQL(createQuery);
+            }
+
+            @Override
+            public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+            }
+        }
+        ```
+
+    2. SearchLocalDataSource 에서 DBHelperUtil 사용[[소스코드]](https://github.com/Hooooong/_Explog/blob/master/app/src/main/java/com/hongsup/explog/data/search/source/SearchLocalDataSource.java)
+
+        - 최근검색어 List, 검색어 삽입, 삭제 메소드 작성
+
+        ```java
+        // 최근검색어 List 를 가져오는 메소드
+        @Override
+        public List<String> loadRecentSearchWord() {
+            String query = " SELECT id, word" +
+                           " FROM history";
+            List<String> wordList = new ArrayList<>();
+
+            SQLiteDatabase connection = dbHelper.getReadableDatabase();
+
+            Cursor cursor = connection.rawQuery(query, null);
+            while (cursor.moveToNext()) {
+                String word = cursor.getString(1);
+                wordList.add(0, word);
+            }
+            cursor.close();
+            connection.close();
+            close();
+
+            return wordList;
+        }
+
+        // 최근 검색어 삽입하는 메소드
+        @Override
+        public void insertSearchWord(String word) {
+            String query = " INSERT INTO history(word)" + "" +
+                           " values('" + word + "')";
+            SQLiteDatabase connection = dbHelper.getReadableDatabase();
+            connection.execSQL(query);
+            connection.close();
+            close();
+        }
+
+        // 최근 검색어 삭제하는 메소드
+        @Override
+        public void deleteSearchWord(String word) {
+            String query = " DELETE FROm history " +
+                           " WHERE word = '" + word + "'";
+            SQLiteDatabase connection = dbHelper.getReadableDatabase();
+            connection.execSQL(query);
+            connection.close();
+            close();
+        }
+        ```
+
 7. Permmission
 
     - BaseActivity를 구현하여 권한이 필요한 Activity 에서 상속받아 사용
+
+    1. BaseActivity 추상클래스 생성 [[소스코드]](https://github.com/Hooooong/_Explog/blob/master/app/src/main/java/com/hongsup/explog/view/base/BaseActivity.java)
+
+        - `init()` 메소드를 추상메소드로 작성하여 권한이 승인되면 구현한 init 메소드를 실행
+
+        ```java
+        public abstract class BaseActivity extends AppCompatActivity {
+
+            private static final int REQ_CODE  = 999;
+            private String permissions[] ;
+
+            public abstract void init();
+
+            public BaseActivity(String[] permissions) {
+                this.permissions = permissions;
+            }
+
+            @Override
+            protected void onCreate(@Nullable Bundle savedInstanceState) {
+                super.onCreate(savedInstanceState);
+
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                    checkPermission();
+                }else{
+                    init();
+                }
+            }
+
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            public void checkPermission(){
+                List<String> requires = new ArrayList<>();
+                for(String permission : permissions){
+                    if(checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED){
+                        requires.add(permission);
+                    }
+                }
+
+                if(requires.size() > 0){
+                    String perm[] = requires.toArray(new String[requires.size()]);
+                    requestPermissions(perm, REQ_CODE);
+                }else{
+                    init();
+                }
+            }
+
+            @Override
+            public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                switch (requestCode){
+                    case REQ_CODE:
+                        boolean flag = true;
+                        for(int grantResult : grantResults){
+                            if(grantResult != PackageManager.PERMISSION_GRANTED){
+                                flag = false;
+                                break;
+                            }
+                        }
+                        if(flag){
+                            init();
+                        }else{
+                            Toast.makeText(this, "권한 승인을 하지 않으면 APP 을 사용할 수 없습니다.", Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+                        break;
+                }
+            }
+        }
+        ```
+
+    2. 권한이 필요한 기능에서 BaseActivity 상속받아 사용 [[소스코드]](https://github.com/Hooooong/_Explog/blob/master/app/src/main/java/com/hongsup/explog/view/gallery/GalleryActivity.java#L47)
+
+        ```java
+        public class GalleryActivity extends BaseActivity  {
+
+            private static final String TAG = "GalleryActivity";
+
+            public GalleryActivity() {
+                // 필요한 권한을 부모 클래스의 생성자로 넘겨준다.
+                super(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE});
+            }
+
+            // 권한이 승인되면 init() 메소드 호출된다.
+            @Override
+            public void init() {
+                setContentView(R.layout.activity_gallery);
+                initLayout();
+                initGalleryAdapter();
+                setGallery();
+            }
+
+            // 생략...
+        }
+        ```
 
 ## 소스 코드
 
