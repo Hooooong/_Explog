@@ -33,7 +33,7 @@
 
 ## 사용 Skills
 
-1.	MVP Architecture 적용
+1. MVP Architecture 적용
 
     - Google Android MVP Architecture를 참고하여 적용[[Todo-MVP]](https://github.com/googlesamples/android-architecture/tree/todo-mvp/)
 
@@ -422,9 +422,7 @@
                         .build();
 
                 try {
-
                     response = chain.proceed(request);
-
                 } catch (ProtocolException e) {
 
                     /**
@@ -465,11 +463,136 @@
         }
         ```
 
-3. RxJava, RxBinding
+3. RxBinding
 
-4. SharedPreferences
+    - RxBinding 을 활용하여 TextView 의 변화를 Observable 로 받아 TextWatcher 보다 짧은 코드로 사용할 수 있다.[[소스코드]](https://github.com/Hooooong/_Explog/blob/master/app/src/main/java/com/hongsup/explog/view/search/view/SearchView.java#L174)
+
+    ```java
+    // 기존 TextWatcher 를 사용한 코드
+    TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            Log.d("확인", "onTextChanged: " + s.toString() + start + before + count);
+            if(count>0){
+               recyclerSearchHistory.setAdapter(searchRecyclerResultAdapter);
+            }else if(start==0){
+                recyclerSearchHistory.setAdapter(searchRecyclerAdapter);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
+
+    editSearch.addTextChangedListener(textWatcher);    
+
+    //RxBinding 을 사용한 코드
+    RxTextView.textChanges(editSearch)
+                .subscribe(ch ->{
+                    if(ch.length()>0){
+                        recyclerSearchHistory.setAdapter(searchRecyclerResultAdapter);
+                    }else{
+                        recyclerSearchHistory.setAdapter(searchRecyclerAdapter);
+                    }
+                });
+    ```
+
+4. SharedPreferences 활용
 
     - SharedPreferences를 통해 User 정보 활용 및 자동 로그인 적용
+
+    1. `PreferenceUtil` 생성 [[소스코드]](https://github.com/Hooooong/_Explog/blob/master/app/src/main/java/com/hongsup/explog/util/PreferenceUtil.java)
+
+        - SharedPreference 생성과 data 의 get,set, remove 메소드 작성
+
+        ```java
+        public class PreferenceUtil {
+            private static final String filename = "explog";
+
+            private static SharedPreferences getPreference(Context context){
+                return context.getSharedPreferences(filename, Context.MODE_PRIVATE);
+            }
+
+            public static void setValue(Context context, String key, String value){
+                SharedPreferences.Editor editor = getPreference(context).edit();
+                editor.putString(key, value);
+                editor.commit();
+            }
+            public static String getString(Context context, String key){
+                return getPreference(context).getString(key,"");
+            }
+
+            public static void removeAllValue(Context context){
+                SharedPreferences.Editor editor = getPreference(context).edit();
+                editor.clear();
+                editor.commit();
+            }
+        }
+        ```
+
+    2. SignIn 통신 시 `SharedPreferences` 사용 [[소스코드]](https://github.com/Hooooong/_Explog/blob/master/app/src/main/java/com/hongsup/explog/view/signin/presenter/SignInPresenter.java#L47)
+
+        - 성공 시 SignIn 에 필요한 값을 저장하고, 실패 시 기존에 정보가 있으면 삭제한다.
+
+        ```java
+        @Override
+        public void getSignIn(SignIn signIn) {
+            view.showProgress();
+
+            /**
+             * Observable Pattern 으로 한 경우
+             */
+            Observable<Response<User>> observable = repository.signIn(signIn);
+            observable.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(data -> {
+                        if(data.isSuccessful()){
+                            /*
+                               로그인이 성공했을 경우
+                               자동 로그인에 필요한 SharedPreference 에 저장한다.
+                             */
+                            PreferenceUtil.setValue(context, "Email", signIn.getEmail());
+                            PreferenceUtil.setValue(context, "password", signIn.getPassword());
+                            PreferenceUtil.setValue(context, "token", data.body().getToken());
+
+                        } else {
+                            /*
+                              로그인이 실패하였을 경우
+                              기존에 있던 SharedPreference 의 정보를 다 지운다.
+                            */
+                            PreferenceUtil.removeAllValue(context);
+                        }
+                    });
+        }
+        ```
+
+    3. SplashActivity 에서 `SharedPreference` 정보를 사용하여 자동 로그인 실행 [[소스코드]](https://github.com/Hooooong/_Explog/blob/master/app/src/main/java/com/hongsup/explog/view/splash/SplashActivity.java#L39)
+
+        ```java
+        // 자동 로그인 처리
+        if(!TextUtils.isEmpty(PreferenceUtil.getString(SplashActivity.this, "Email"))){
+            /**
+             * SharedPreference 에 회원정보가 있으면
+             * 자동 로그인 처리
+             */
+            SignIn sign = new SignIn();
+            sign.setEmail(PreferenceUtil.getString(SplashActivity.this, "Email"));
+            sign.setPassword(PreferenceUtil.getString(SplashActivity.this, "password"));
+
+            splashPresenter.getSignIn(sign);
+        }else{
+            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        ```
 
 5. UI Component
 
