@@ -465,11 +465,11 @@
 
 3. RxBinding
 
-    - RxBinding 을 활용하여 TextView 의 변화를 Observable 로 받아 TextWatcher 보다 짧은 코드로 사용할 수 있다.[[소스코드]](https://github.com/Hooooong/_Explog/blob/master/app/src/main/java/com/hongsup/explog/view/search/view/SearchView.java#L174)
+    - RxBinding 을 활용하여 TextView 의 변화를 Observable 로 받아 보다 짧은 코드로 사용할 수 있다.[[소스코드]](https://github.com/Hooooong/_Explog/blob/master/app/src/main/java/com/hongsup/explog/view/search/view/SearchView.java#L174)
 
     ```java
     // 기존 TextWatcher 를 사용한 코드
-    TextWatcher textWatcher = new TextWatcher() {
+    editSearch.addTextChangedListener(new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -489,9 +489,7 @@
         public void afterTextChanged(Editable s) {
 
         }
-    };
-
-    editSearch.addTextChangedListener(textWatcher);    
+    });    
 
     //RxBinding 을 사용한 코드
     RxTextView.textChanges(editSearch)
@@ -544,11 +542,6 @@
         ```java
         @Override
         public void getSignIn(SignIn signIn) {
-            view.showProgress();
-
-            /**
-             * Observable Pattern 으로 한 경우
-             */
             Observable<Response<User>> observable = repository.signIn(signIn);
             observable.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
