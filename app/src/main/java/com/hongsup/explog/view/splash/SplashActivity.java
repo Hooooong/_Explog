@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import com.hongsup.explog.data.sign.SignIn;
 import com.hongsup.explog.util.PreferenceUtil;
 import com.hongsup.explog.view.main.MainActivity;
-import com.hongsup.explog.view.signin.SignInActivity;
 import com.hongsup.explog.view.splash.contract.SplashContract;
 import com.hongsup.explog.view.splash.presenter.SplashPresenter;
 import com.hongsup.explog.view.splash.view.SplashView;

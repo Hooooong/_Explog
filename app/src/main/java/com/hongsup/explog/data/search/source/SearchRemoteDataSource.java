@@ -1,11 +1,8 @@
 package com.hongsup.explog.data.search.source;
 
-import com.hongsup.explog.data.post.PostCover;
 import com.hongsup.explog.data.post.PostResult;
 import com.hongsup.explog.service.ServiceGenerator;
 import com.hongsup.explog.service.api.SearchAPI;
-
-import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.Response;
@@ -14,7 +11,7 @@ import retrofit2.Response;
  * Created by Hong on 2017-12-21.
  */
 
-public class SearchRemoteDataSource implements SearchSouce.Remote{
+public class SearchRemoteDataSource implements SearchSource.Remote{
 
     private static SearchRemoteDataSource instance;
 

@@ -22,7 +22,7 @@ import retrofit2.Response;
 public class NewsPeedItemPresenter implements NewsPeedItemContract.iPresenter, OnCoverClickListener {
 
     private static final String TAG = "NewsPeedItemPresenter";
-    
+
     private NewsPeedItemContract.iView view;
     private PostRepository repository;
 
@@ -45,13 +45,9 @@ public class NewsPeedItemPresenter implements NewsPeedItemContract.iPresenter, O
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(data -> {
                             if (data.isSuccessful()) {
-                                if (data.code() == 200) {
-                                    Log.e(TAG, "loadItem: 데이터 로드 완료" );
-                                    adapterModel.addItems(data.body().getPostList());
-                                    adapterView.notifyAdapter();
-                                } else {
-                                    view.showError("ERROR 발생");
-                                }
+                                Log.e(TAG, "loadItem: 데이터 로드 완료");
+                                adapterModel.addItems(data.body().getPostList());
+                                adapterView.notifyAdapter();
                             } else {
                                 view.showError("ERROR 발생");
                             }

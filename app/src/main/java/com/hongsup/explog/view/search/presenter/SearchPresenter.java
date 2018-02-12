@@ -34,6 +34,7 @@ public class SearchPresenter implements SearchContract.iPresenter, OnCoverClickL
     private HistorySearchAdapterContract.iModel historySearchModel;
     private HistorySearchAdapterContract.iView historySearchView;
 
+
     public SearchPresenter(Context context) {
         this.repository = SearchRepository.getInstance(context);
     }

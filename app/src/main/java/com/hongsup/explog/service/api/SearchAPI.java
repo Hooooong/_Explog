@@ -1,9 +1,6 @@
 package com.hongsup.explog.service.api;
 
-import com.hongsup.explog.data.post.PostCover;
 import com.hongsup.explog.data.post.PostResult;
-
-import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.Response;

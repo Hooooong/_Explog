@@ -11,7 +11,7 @@ import retrofit2.Response;
  * Created by Hong on 2017-12-21.
  */
 
-public interface SearchSouce {
+public interface SearchSource {
 
     interface Local{
         List<String> loadRecentSearchWord();

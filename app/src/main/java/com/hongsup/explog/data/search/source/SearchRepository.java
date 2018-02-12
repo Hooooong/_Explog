@@ -13,7 +13,7 @@ import retrofit2.Response;
  * Created by Hong on 2017-12-21.
  */
 
-public class SearchRepository implements SearchSouce.Local, SearchSouce.Remote {
+public class SearchRepository implements SearchSource.Local, SearchSource.Remote {
 
     private static SearchRepository instance;
 

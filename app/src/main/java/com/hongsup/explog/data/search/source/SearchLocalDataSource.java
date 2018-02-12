@@ -13,7 +13,7 @@ import java.util.List;
  * Created by Hong on 2017-12-21.
  */
 
-public class SearchLocalDataSource implements SearchSouce.Local {
+public class SearchLocalDataSource implements SearchSource.Local {
 
     private DBHelperUtil dbHelper;
 

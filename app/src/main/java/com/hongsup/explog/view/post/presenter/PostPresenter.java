@@ -3,7 +3,6 @@ package com.hongsup.explog.view.post.presenter;
 import android.util.Log;
 
 import com.hongsup.explog.data.post.PostContent;
-import com.hongsup.explog.data.post.PostContentResult;
 import com.hongsup.explog.data.post.PostCover;
 import com.hongsup.explog.data.post.source.PostRepository;
 import com.hongsup.explog.view.post.adapter.contract.PostAdapterContract;
@@ -57,26 +56,22 @@ public class PostPresenter implements PostContract.iPresenter, OnPostContentClic
         this.postPk = cover.getPk();
         view.showProgress();
 
-        Observable<Response<PostContentResult>> observable = repository.getPostContentList(postPk);
-        observable.subscribeOn(Schedulers.io())
+        repository.getPostContentList(postPk)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .filter(Response::isSuccessful)
                 .subscribe(data -> {
-                            if (data.isSuccessful()) {
-                                Log.e(TAG, "loadPostContent: 데이터 로드 완료");
-                                view.hideProgress();
+                            Log.e(TAG, "loadPostContent: 데이터 로드 완료");
+                            view.hideProgress();
 
-                                if (data.body().getPostContentList() == null || data.body().getPostContentList().size() == 0) {
-                                    adapterModel.setInit(cover.getLiked(), cover.getLikeCount(), cover.getAuthor());
-                                } else {
-                                    // Log.e(TAG, "loadPostContent: " + data.body().getPostContentList().toString());
-                                    adapterModel.setItems(data.body().getPostContentList());
-                                    adapterModel.setLikeAndFollow(cover.getLiked(), cover.getLikeCount(), cover.getAuthor());
-                                }
-                                adapterView.notifyAllAdapter();
+                            if (data.body().getPostContentList() == null || data.body().getPostContentList().size() == 0) {
+                                adapterModel.setInit(cover.getLiked(), cover.getLikeCount(), cover.getAuthor());
                             } else {
-                                Log.e(TAG, "loadPostContent: 데이터 로드 실패1");
-                                view.hideProgress();
+                                // Log.e(TAG, "loadPostContent: " + data.body().getPostContentList().toString());
+                                adapterModel.setItems(data.body().getPostContentList());
+                                adapterModel.setLikeAndFollow(cover.getLiked(), cover.getLikeCount(), cover.getAuthor());
                             }
+                            adapterView.notifyAllAdapter();
                         },
                         throwable -> {
                             Log.e(TAG, "loadPostContent: 데이터 로드 실패2");
@@ -161,11 +156,11 @@ public class PostPresenter implements PostContract.iPresenter, OnPostContentClic
         Observable<Response<Void>> observable = repository.deletePost(postPk);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(data ->{
-                    Log.e(TAG, "deletePost: " + data.code()  + ", " + data.message());
-                    Log.e(TAG, "deletePost: post 삭제 완료"  );
+                .subscribe(data -> {
+                    Log.e(TAG, "deletePost: " + data.code() + ", " + data.message());
+                    Log.e(TAG, "deletePost: post 삭제 완료");
                     view.deletePost(true);
-                },throwable -> {
+                }, throwable -> {
                     Log.e(TAG, "deletePost: post 삭제 실패");
                     view.deletePost(false);
                 });

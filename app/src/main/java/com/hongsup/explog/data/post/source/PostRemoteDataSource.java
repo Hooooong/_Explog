@@ -1,11 +1,10 @@
 package com.hongsup.explog.data.post.source;
 
-import android.util.Log;
-
 import com.hongsup.explog.data.post.PostContent;
 import com.hongsup.explog.data.post.PostContentResult;
 import com.hongsup.explog.data.post.PostCover;
 import com.hongsup.explog.data.post.PostResult;
+import com.hongsup.explog.service.RetrofitClient;
 import com.hongsup.explog.service.ServiceGenerator;
 import com.hongsup.explog.service.api.PostAPI;
 
@@ -31,7 +30,8 @@ public class PostRemoteDataSource implements PostSource {
 
     private PostRemoteDataSource() {
         // Service 생성
-        postAPI = ServiceGenerator.create(PostAPI.class);
+        //postAPI = ServiceGenerator.create(PostAPI.class);
+        postAPI = RetrofitClient.getInstance().getRetrofit().create(PostAPI.class);
         postTokenAPI = ServiceGenerator.createInterceptor(PostAPI.class);
     }
 

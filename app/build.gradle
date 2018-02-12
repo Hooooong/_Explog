@@ -47,6 +47,9 @@ dependencies {
     // Retrofit2 관련 라이브러리
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    // OkHttp3 관련 라이브러리
+    implementation 'com.squareup.okhttp3:okhttp:3.4.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.2'
 
     // RxJava 와 Retrofit2 연결 라이브러리
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
