@@ -2,15 +2,11 @@ package com.hongsup.explog.view.post.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.hongsup.explog.data.Const;
-import com.hongsup.explog.data.post.Content;
 import com.hongsup.explog.data.post.PostContent;
-import com.hongsup.explog.data.user.User;
 import com.hongsup.explog.view.post.adapter.contract.PostAdapterContract;
 import com.hongsup.explog.view.post.adapter.viewholder.PostViewHolder;
 import com.hongsup.explog.view.post.listener.OnPostContentClickListener;
@@ -51,9 +47,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> implements
         PostContent postContent = postContentList.get(position);
         holder.setContext(context);
         holder.setPosition(position);
-        holder.setContentClickListener(postContentClickListener);
-        holder.setLikeClickListener(postLikeClickListener);
         holder.setCheckMyPost(checkMyPost);
+        holder.setContentClickListener(postContentClickListener);
         holder.bind(postContent.getContent());
     }
 
@@ -65,18 +60,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> implements
     @Override
     public int getItemViewType(int position) {
         PostContent postContent = postContentList.get(position);
-        if (Const.CONTENT_TYPE_TEXT.equals(postContent.getContentType())) {
-            return Const.VIEW_TYPE_TEXT;
-        } else if (Const.CONTENT_TYPE_PHOTO.equals(postContent.getContentType())) {
-            return Const.VIEW_TYPE_PHOTO;
-        } else if (Const.CONTENT_TYPE_PATH.equals(postContent.getContentType())) {
-            return Const.VIEW_TYPE_PATH;
-        } else if (Const.CONTENT_TYPE_INIT.equals(postContent.getContentType())) {
-            return Const.VIEW_TYPE_INIT;
-        } else if (Const.CONTENT_TYPE_FOOTER.equals(postContent.getContentType())) {
-            return Const.VIEW_TYPE_FOOTER;
-        }
-        throw new RuntimeException("there is no type that matches the type " + postContent.getContentType() + " + make sure your using types correctly");
+        return PostViewHolderFactory.getViewType(postContent.getContentType());
     }
 
     @Override
@@ -85,28 +69,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> implements
     }
 
     @Override
-    public void setOnPostLikeClickListener(OnPostLikeClickListener postLikeClickListener) {
-        this.postLikeClickListener = postLikeClickListener;
-    }
-
-    @Override
     public void notifyAllAdapter() {
         notifyItemRangeChanged(0, postContentList.size());
-    }
-
-    @Override
-    public void notifyLike(int position) {
-        notifyItemChanged(position);
-    }
-
-    @Override
-    public void setInit(int[] liked, int likeCount, User author) {
-        postContentList.add(createContent(liked, likeCount, author, Const.CONTENT_TYPE_INIT));
-    }
-
-    @Override
-    public void setLikeAndFollow(int[] liked, int likeCount, User author) {
-        postContentList.add(createContent(liked, likeCount, author, Const.CONTENT_TYPE_FOOTER));
     }
 
     @Override
@@ -117,6 +81,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> implements
 
     @Override
     public void addItems(PostContent postContent) {
+        /*
         if (postContentList.get(0).getContentType().equals(Const.CONTENT_TYPE_INIT)) {
             // 첫번째 아이템이 init 인 경우
             PostContent footerContent = createContent(postContentList.get(0).getContent().getLiked(), postContentList.get(0).getContent().getLikeCount(), postContentList.get(0).getContent().getAuthor(), Const.CONTENT_TYPE_FOOTER);
@@ -129,37 +94,29 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> implements
             this.postContentList.add(postContentList.size() - 1, postContent);
             notifyItemInserted(postContentList.size() - 1);
         }
-    }
-
-    @Override
-    public void modifyLike(int position, int[] liked, int likeCount) {
-        postContentList.get(position).getContent().setLikeCount(likeCount);
-        postContentList.get(position).getContent().setLiked(liked);
+        */
     }
 
     /**
      * initViewHolder Item OR FooterViewHolder Item 생성기
      *
-     * @param likeCount
      * @param author
      * @param type
      * @return
      */
-    private PostContent createContent(int[] liked, int likeCount, User author, String type) {
-        PostContent postContent = new PostContent();
 
-        /**
+    /*private PostContent createContent(User author, String type) {
+        PostContent postContent = new PostContent();
+        *//**
          * Like 와 Author 설정
-         */
+         *//*
         Content content = new Content();
-        content.setLikeCount(likeCount);
-        content.setLiked(liked);
         content.setAuthor(author);
         postContent.setContent(content);
 
         postContent.setContentType(type);
 
         return postContent;
-    }
+    }*/
 
 }

@@ -8,7 +8,6 @@ import com.hongsup.explog.data.post.source.PostRepository;
 import com.hongsup.explog.view.post.adapter.contract.PostAdapterContract;
 import com.hongsup.explog.view.post.contract.PostContract;
 import com.hongsup.explog.view.post.listener.OnPostContentClickListener;
-import com.hongsup.explog.view.post.listener.OnPostLikeClickListener;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -21,7 +20,7 @@ import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
  * Created by Android Hong on 2017-12-14.
  */
 
-public class PostPresenter implements PostContract.iPresenter, OnPostContentClickListener, OnPostLikeClickListener {
+public class PostPresenter implements PostContract.iPresenter, OnPostContentClickListener {
 
     private int postPk;
     private PostContract.iView view;
@@ -47,7 +46,6 @@ public class PostPresenter implements PostContract.iPresenter, OnPostContentClic
     public void setPostAdapterView(PostAdapterContract.iView view) {
         this.adapterView = view;
         this.adapterView.setOnPostContentClickListener(this);
-        this.adapterView.setOnPostLikeClickListener(this);
     }
 
     @Override
@@ -61,15 +59,16 @@ public class PostPresenter implements PostContract.iPresenter, OnPostContentClic
                 .observeOn(AndroidSchedulers.mainThread())
                 .filter(Response::isSuccessful)
                 .subscribe(data -> {
-                            Log.e(TAG, "loadPostContent: 데이터 로드 완료");
                             view.hideProgress();
-
                             if (data.body().getPostContentList() == null || data.body().getPostContentList().size() == 0) {
-                                adapterModel.setInit(cover.getLiked(), cover.getLikeCount(), cover.getAuthor());
+                                // 작성된 글이 없을 경우
+                                // 초기화 실행
+                                view.setInit(true);
                             } else {
+                                // 작성된 글이 있을 경우
+                                view.setInit(false);
                                 // Log.e(TAG, "loadPostContent: " + data.body().getPostContentList().toString());
                                 adapterModel.setItems(data.body().getPostContentList());
-                                adapterModel.setLikeAndFollow(cover.getLiked(), cover.getLikeCount(), cover.getAuthor());
                             }
                             adapterView.notifyAllAdapter();
                         },
@@ -166,6 +165,7 @@ public class PostPresenter implements PostContract.iPresenter, OnPostContentClic
                 });
     }
 
+    /*
     @Override
     public void setOnLikeClick(int position) {
         view.showProgress();
@@ -189,5 +189,5 @@ public class PostPresenter implements PostContract.iPresenter, OnPostContentClic
                             view.hideProgress();
                             Log.e(TAG, "setOnLikeClick: " + throwable.getMessage());
                         });
-    }
+    }*/
 }

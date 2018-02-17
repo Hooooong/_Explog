@@ -4,8 +4,6 @@ import android.view.View;
 
 import com.hongsup.explog.R;
 import com.hongsup.explog.data.Const;
-import com.hongsup.explog.view.post.adapter.viewholder.FooterViewHolder;
-import com.hongsup.explog.view.post.adapter.viewholder.InitViewHolder;
 import com.hongsup.explog.view.post.adapter.viewholder.PathViewHolder;
 import com.hongsup.explog.view.post.adapter.viewholder.PhotoViewHolder;
 import com.hongsup.explog.view.post.adapter.viewholder.PostViewHolder;
@@ -24,11 +22,7 @@ public class PostViewHolderFactory {
      */
     public static int getPostItemLayoutId(int type) {
         int layoutId;
-
         switch (type) {
-            case Const.VIEW_TYPE_INIT:
-                layoutId = R.layout.item_post_init;
-                break;
             case Const.VIEW_TYPE_TEXT:
                 layoutId = R.layout.item_post_text;
                 break;
@@ -38,22 +32,22 @@ public class PostViewHolderFactory {
             case Const.VIEW_TYPE_PATH:
                 layoutId = R.layout.item_post_path;
                 break;
-            case Const.VIEW_TYPE_FOOTER:
-                layoutId = R.layout.item_post_footer;
-                break;
             default:
                 throw new RuntimeException(type + "에 맞는 Layout 이 없습니다.");
         }
         return layoutId;
     }
 
+    /**
+     * Type 에 맞는 ViewHolder 를 반환하는 메소드
+     * @param type
+     * @param itemView
+     * @return
+     */
     public static PostViewHolder getViewHolder(int type, View itemView) {
 
         PostViewHolder viewHolder;
         switch (type) {
-            case Const.VIEW_TYPE_INIT:
-                viewHolder = new InitViewHolder(itemView);
-                break;
             case Const.VIEW_TYPE_TEXT:
                 viewHolder = new TextViewHolder(itemView);
                 break;
@@ -63,12 +57,20 @@ public class PostViewHolderFactory {
             case Const.VIEW_TYPE_PATH:
                 viewHolder = new PathViewHolder(itemView);
                 break;
-            case Const.VIEW_TYPE_FOOTER:
-                viewHolder = new FooterViewHolder(itemView);
-                break;
             default:
                 throw new RuntimeException(type + "에 맞는 ViewHolder 가 없습니다.");
         }
         return viewHolder;
+    }
+
+    public static int getViewType(String contentType) {
+        if (Const.CONTENT_TYPE_TEXT.equals(contentType)) {
+            return Const.VIEW_TYPE_TEXT;
+        } else if (Const.CONTENT_TYPE_PHOTO.equals(contentType)) {
+            return Const.VIEW_TYPE_PHOTO;
+        } else if (Const.CONTENT_TYPE_PATH.equals(contentType)) {
+            return Const.VIEW_TYPE_PATH;
+        }
+        throw new RuntimeException("there is no type that matches the type " + contentType + " + make sure your using types correctly");
     }
 }

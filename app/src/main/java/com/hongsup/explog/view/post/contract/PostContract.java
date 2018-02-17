@@ -30,7 +30,7 @@ public interface PostContract {
 
         void deletePost(boolean flag);
 
-        // void moveToScrollMax();
+        void setInit(boolean flag);
     }
 
     interface iPresenter {

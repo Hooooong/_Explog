@@ -34,7 +34,6 @@ public class TextViewHolder extends PostViewHolder {
     public TextViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
-
     }
 
     @Override

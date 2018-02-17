@@ -36,10 +36,6 @@ public abstract class PostViewHolder extends RecyclerView.ViewHolder {
         this.postContentClickListener = postContentClickListener;
     }
 
-    public void setLikeClickListener(OnPostLikeClickListener postLikeClickListener) {
-        this.postLikeClickListener = postLikeClickListener;
-    }
-
     public void setPosition(int position) {
         this.position = position;
     }

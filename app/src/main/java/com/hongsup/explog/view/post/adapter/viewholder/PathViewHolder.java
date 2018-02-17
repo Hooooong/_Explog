@@ -18,8 +18,6 @@ import butterknife.ButterKnife;
 
 public class PathViewHolder extends PostViewHolder {
 
-    private static final String TAG = "PathViewHolder";
-
     @BindView(R.id.imgPath)
     ImageView imgPath;
     @BindView(R.id.textCreateAt)

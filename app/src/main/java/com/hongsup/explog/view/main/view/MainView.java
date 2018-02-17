@@ -69,7 +69,6 @@ public class MainView implements MainContract.iView, BottomNavigationView.OnNavi
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (id != item.getItemId()) {
             id = item.getItemId();
-
             switch (id) {
                 case R.id.navigation_newspeed:
                     // View 가 이미 있는지 체크

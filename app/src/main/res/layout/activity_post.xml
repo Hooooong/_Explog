@@ -8,32 +8,36 @@
     tools:context="com.hongsup.explog.view.post.PostActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="404dp"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
 
+        <!--
+        app:contentScrim="?attr/colorPrimary"
+        app:statusBarScrim="@android:color/transparent"
+        -->
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_collapseMode="pin"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:statusBarScrim="@android:color/transparent"
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
             app:titleEnabled="false">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
-                app:layout_collapseMode="parallax">
+                app:layout_collapseMode="pin">
 
                 <ImageView
                     android:id="@+id/imgCover"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop" />
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    app:layout_collapseMode="parallax" />
 
                 <RelativeLayout
                     android:id="@+id/contentLayout"
@@ -119,21 +123,17 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    <include layout="@layout/view_post_content" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
         android:src="@drawable/ic_plus_white_24dp"
-        app:fabSize="normal"
         android:visibility="gone"
-        android:layout_margin="16dp" />
+        app:fabSize="normal" />
 
 
     <!-- ProgressBar Layout -->

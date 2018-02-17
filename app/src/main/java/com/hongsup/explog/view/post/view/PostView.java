@@ -5,17 +5,20 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -36,10 +39,14 @@ import com.hongsup.explog.view.post.adapter.PostAdapter;
 import com.hongsup.explog.view.post.contract.PostContract;
 import com.hongsup.explog.view.posttext.PostTextActivity;
 
+import java.util.Arrays;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.view.View.VISIBLE;
 
 /**
  * Created by Android Hong on 2017-12-14.
@@ -55,8 +62,10 @@ public class PostView implements PostContract.iView {
     private PostCover cover;
     private PostAdapter postAdapter;
     private int menuId;
-    PostItemDialog postItemDialog;
+    private PostItemDialog postItemDialog;
 
+    @BindView(R.id.appBarLayout)
+    AppBarLayout appBarLayout;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.imgCover)
@@ -75,6 +84,33 @@ public class PostView implements PostContract.iView {
     FloatingActionButton fab;
     @BindView(R.id.progressBarLayout)
     RelativeLayout progressBarLayout;
+
+    @BindView(R.id.postContentLayout)
+    ConstraintLayout postContentLayout;
+
+    @BindView(R.id.likeAndAuthorLayout)
+    ConstraintLayout likeAndAuthorLayout;
+    @BindView(R.id.imgAuthorProfile)
+    CircleImageView imgAuthorProfile;
+    @BindView(R.id.lineView)
+    View lineView;
+    @BindView(R.id.authorLayout)
+    RelativeLayout authorLayout;
+    @BindView(R.id.textAuthor)
+    TextView textAuthor;
+    @BindView(R.id.textEmail)
+    TextView textEmail;
+    @BindView(R.id.imgLike)
+    ImageButton imgLike;
+    @BindView(R.id.textLikeCount)
+    TextView textLikeCount;
+
+    @BindView(R.id.initLayout)
+    ConstraintLayout initLayout;
+    @BindView(R.id.textInitWriter)
+    TextView textInitWriter;
+    @BindView(R.id.textSummary)
+    TextView textSummary;
 
 
     public PostView(Context context) {
@@ -105,7 +141,7 @@ public class PostView implements PostContract.iView {
 
     @Override
     public void showProgress() {
-        progressBarLayout.setVisibility(View.VISIBLE);
+        progressBarLayout.setVisibility(VISIBLE);
     }
 
     @Override
@@ -114,7 +150,8 @@ public class PostView implements PostContract.iView {
     }
 
     @Override
-    public void showError() {}
+    public void showError() {
+    }
 
     @Override
     public void setMenu(Menu menu) {
@@ -157,11 +194,46 @@ public class PostView implements PostContract.iView {
     @Override
     public void deletePost(boolean flag) {
         if (flag) {
-            Toast.makeText(context, "여행기 삭제가 성공하였습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "여행기가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
             ((Activity) context).finish();
         } else {
             Toast.makeText(context, "여행기 삭제가 실패햐였습니다. 다시 시도해주시기 바랍니다.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void setInit(boolean flag) {
+
+        if (flag) {
+            initLayout.setVisibility(VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+
+            if (UserRepository.getInstance().getUser() != null && cover.getAuthor().getEmail().equals(UserRepository.getInstance().getUser().getEmail())) {
+                // 내 글이면
+                textInitWriter.setText("안녕하세요. " + UserRepository.getInstance().getUser().getUsername() + " 님!");
+                textSummary.setText("당신의 여행 이야기를 작성해보세요");
+
+            } else {
+                // 남 글이면
+                textInitWriter.setText("음... 아직 작성이 안되었네요!");
+                textSummary.setText("다음 기회에 여행 이야기를 둘러보세요");
+            }
+
+            ConstraintSet constraintSet = new ConstraintSet();
+            constraintSet.clone(postContentLayout);
+            constraintSet.connect(likeAndAuthorLayout.getId(), ConstraintSet.TOP, postContentLayout.getId(), ConstraintSet.BOTTOM, 0);
+            constraintSet.applyTo(postContentLayout);
+
+        } else {
+            initLayout.setVisibility(View.GONE);
+            recyclerView.setVisibility(VISIBLE);
+
+            ConstraintSet constraintSet = new ConstraintSet();
+            constraintSet.clone(postContentLayout);
+            constraintSet.connect(likeAndAuthorLayout.getId(), ConstraintSet.TOP, postContentLayout.getId(), ConstraintSet.BOTTOM, 0);
+            constraintSet.applyTo(postContentLayout);
+        }
+        likeAndAuthorLayout.setVisibility(VISIBLE);
     }
 
     private void initToolbar() {
@@ -175,6 +247,20 @@ public class PostView implements PostContract.iView {
                 ((Activity) context).finish();
             }
         });
+
+        /*
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (Math.abs(appBarLayout.getTotalScrollRange()) == Math.abs(verticalOffset)) {
+                    // 같으면 Toolbar 에 있는 Layout 을 보여준다.
+                    toolbar.setVisibility(View.VISIBLE);
+                } else {
+                    // 다를 경우 Toolbar 에 있는 Layout 을 감춘다.
+                    toolbar.setVisibility(View.INVISIBLE);
+                }
+            }
+        });*/
     }
 
     private void initAdapter() {
@@ -188,7 +274,6 @@ public class PostView implements PostContract.iView {
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(postAdapter);
     }
-
 
     private void setCoverData() {
         if (cover != null) {
@@ -207,12 +292,31 @@ public class PostView implements PostContract.iView {
                     .load(cover.getAuthor().getImg_profile())
                     .into(imgProfile);
 
+            // 1. 좋아요 설정
+            setLiked(cover.getLiked(), cover.getLikeCount());
+
             if (UserRepository.getInstance().getUser() != null && cover.getAuthor().getEmail().equals(UserRepository.getInstance().getUser().getEmail())) {
                 // 내 글인경우
-                fab.setVisibility(View.VISIBLE);
+                fab.setVisibility(VISIBLE);
+
+                // 2. Author 설정
+                lineView.setVisibility(View.GONE);
+                authorLayout.setVisibility(View.GONE);
             } else {
                 // 남 글인경우
                 fab.setVisibility(View.GONE);
+
+                // 2. Author 설정
+                lineView.setVisibility(View.VISIBLE);
+                authorLayout.setVisibility(View.VISIBLE);
+
+                textAuthor.setText(cover.getAuthor().getUsername());
+                textEmail.setText(cover.getAuthor().getEmail());
+
+                Glide.with(context)
+                        .load(cover.getAuthor().getImg_profile())
+                        .into(imgAuthorProfile);
+
             }
         }
     }
@@ -267,4 +371,29 @@ public class PostView implements PostContract.iView {
         postItemDialog.show();
     }
 
+
+    private void setLiked(int[] liked, int likeCount) {
+        /**
+         *  좋아요 설정
+         */
+        if (UserRepository.getInstance().getUser() != null && isLiked(liked)) {
+            // '좋아요'를 눌렀을 경우
+            imgLike.setImageResource(R.drawable.ic_like_red_16dp);
+            textLikeCount.setTextColor(context.getResources().getColor(R.color.colorRed));
+            textLikeCount.setText(likeCount + "");
+        } else {
+            // '좋아요'를 누르지 않았을 경우
+            imgLike.setImageResource(R.drawable.ic_like_gray_16dp);
+            textLikeCount.setTextColor(context.getResources().getColor(R.color.colorGray));
+            textLikeCount.setText(likeCount + "");
+        }
+    }
+
+    private boolean isLiked(int[] liked) {
+        if (liked != null && Arrays.binarySearch(liked, UserRepository.getInstance().getUser().getPk()) >= 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
